@@ -1,0 +1,161 @@
+<%include file="header-jquery.html" />
+<script type="text/javascript">
+<%include file="js/createlinkedslider.js" />
+</script>
+
+<form action="${app.base_url + 'wait'}" method="get">
+  <input type="hidden" name="key" value="${app.key}">
+<div class="action">
+<p>
+  Set the Frangi parameters:
+</p>
+<ul> 
+  <li>
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="sigmamin"> <font color=blue><i>sigma min</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="sigmamin" name="sigmamin" value="3.0" />
+                    </div>
+                    <div id="sigmamin_slider" name="sigmamin_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to sigmamin
+                    $(document).ready(function() {
+                          createLinkedSlider('#sigmamin', '#sigmamin_slider', 0, 10, 0.1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+
+  <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="sigmamax"> <font color=blue><i>sigma max</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="sigmamax" name="sigmamax" value="5.0" />
+                    </div>
+                    <div id="sigmamax_slider" name="sigmamax_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#sigmamax', '#sigmamax_slider', 0, 10, 0.1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+
+
+  <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="steps"> <font color=blue><i>steps</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="steps" name="steps" value="2" />
+                    </div>
+                    <div id="steps_slider" name="steps_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#steps', '#steps_slider', 1, 10, 1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+
+
+  <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="alpha"> <font color=blue><i>alpha</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="alpha" name="alpha" value="0.5" />
+                    </div>
+                    <div id="alpha_slider" name="alpha_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#alpha', '#alpha_slider', 0.001, 10, 0.1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+  <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="beta"> <font color=blue><i>beta</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="beta" name="beta" value="1.0" />
+                    </div>
+                    <div id="beta_slider" name="beta_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#beta', '#beta_slider', 0.001, 10, 0.1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+
+    <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="gamma"> <font color=blue><i>gamma</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="gamma" name="gamma" value="10.0" />
+                    </div>
+                    <div id="gamma_slider" name="gamma_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#gamma', '#gamma_slider', 0, 40, 0.1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+
+  
+</ul>
+
+
+<p> You can also set the threshold display parameter: </p>
+<ul>
+ <li> 
+ <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="threshold"> <font color=blue><i>threshold</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="threshold" name="threshold" value="50.0" />
+                    </div>
+                    <div id="threshold_slider" name="threshold_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#threshold', '#threshold_slider', 1, 200, 1);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+ </ul>
+
+
+<input type="submit" value="run" />
+</div>
+
+                    
+
+</form>
+
+<hr />
+
+<div>
+  <img src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
+</div>
+
+<%include file="footer.html" />
