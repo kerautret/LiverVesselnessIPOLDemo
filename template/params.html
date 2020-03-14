@@ -68,7 +68,7 @@
 
 
   <p>
-  Set parameters used for Antiga:
+ Set the additional parameters used for Antiga
 </p>
 
   <li> 
@@ -136,7 +136,7 @@
     <li> 
  <!-- code for slider -->
                     <div style="float:left;padding-right:25px">
-                    <label for="gamma"> <font color=blue><i>gamma</i></font>:</label>
+                    <label for="tau"> <font color=blue><i>tau</i></font>:</label>
                      <input type="text" style="font-family:monospace;text-align:right"
                         size="3" id="tau" name="tau" value="10.0" />
                     </div>
@@ -152,6 +152,39 @@
   </li>
 
   </ul>
+
+
+
+<p>
+  Set the additional parameters used for RORPO:
+</p>
+
+
+<ul>
+  <li>
+   <!-- code for slider -->
+                    <div style="float:left;padding-right:25px">
+                    <label for="scaleMinRORPO"> <font color=blue><i>scaleMinRORPO</i></font>:</label>
+                     <input type="text" style="font-family:monospace;text-align:right"
+                        size="3" id="scaleMinRORPO" name="scaleMinRORPO" value="10.0" />
+                    </div>
+                    <div id="scaleMinRORPO_slider" name="scaleMinRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <script type="text/javascript">
+                    // Turn DIV slider into a slider linked to scale
+                    $(document).ready(function() {
+                          createLinkedSlider('#scaleMinRORPO', '#scaleMinRORPO_slider', 0, 1, 100);
+                    });
+                    </script>
+                    <div style="clear:both"> </div>
+                    <!-- end of code for slider -->
+  </li>
+</li>
+
+  
+</ul>
+
+
+
 
   
 
