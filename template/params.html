@@ -128,7 +128,7 @@
 </ul>
 
   <p>
-  Set the additional parameters used for Jerman:
+  Set the additional parameters used for Jerman and RuiZhang:
 </p>
 
 
@@ -269,34 +269,53 @@
 
 </ul>
   
-
-
 <p>
-  Set the additional parameters used for RuiZhang:
+  Set the additional parameters used for Sato:
 </p>
+
+
 
 <ul>
 
-  <li>
-    <!-- code for slider tau -->
+<li>
+    <!-- code for slider sigma -->
     <div style="float:left;padding-right:25px">
-      <label for="tauRuiZhang"> <font color=blue><i>tauRuiZhang</i></font>:</label>
+      <label for="alpha1Sato"> <font color=blue><i>alpha1Sato</i></font>:</label>
       <input type="text" style="font-family:monospace;text-align:right"
-             size="3" id="tauRuiZhang" name="tauRuiZhang" value="0.1" />
+             size="3" id="alpha1Sato" name="alpha1Sato" value="0.1" />
     </div>
-    <div id="tauRuiZhang_slider" name="tauRuiZhang_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <div id="alpha1Sato_slider" name="alpha1Sato_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
     <script type="text/javascript">
       // Turn DIV slider into a slider linked to scale
       $(document).ready(function() {
-      createLinkedSlider('#tauRuiZhang', '#tauRuiZhang_slider', 0, 1, 0.1 );
+      createLinkedSlider('#alpha1Sato', '#alpha1Sato_slider', 0, 1, 0.1 );
       });
     </script>
     <div style="clear:both"> </div>
     <!-- end of code for slider -->
   </li>
 
-  
-</ul>
+<li>
+    <!-- code for slider sigma -->
+    <div style="float:left;padding-right:25px">
+      <label for="alpha2Sato"> <font color=blue><i>alpha2Sato</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="alpha2Sato" name="alpha2Sato" value="0.1" />
+    </div>
+    <div id="alpha2Sato_slider" name="alpha2Sato_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#alpha2Sato', '#alpha2Sato_slider', 0, 1, 0.1 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
+
+
+</uL>
+
 
   
 <p> You can also set the threshold display parameter: </p>
