@@ -181,7 +181,6 @@
 
 
 
-
     <li>
     <!-- code for slider factor -->
     <div style="float:left;padding-right:25px">
@@ -199,7 +198,6 @@
     <div style="clear:both"> </div>
     <!-- end of code for slider -->
   </li>
-
 
 
 
@@ -222,8 +220,6 @@
   </li>
 
 
-
-
     <li>
     <!-- code for slider core -->
     <div style="float:left;padding-right:25px">
@@ -241,12 +237,34 @@
     <div style="clear:both"> </div>
     <!-- end of code for slider -->
   </li>
-
-
-
-  
 </ul>
 
+
+
+<p>
+  Set the additional parameters used for OOF:
+</p>
+
+
+
+
+<li>
+    <!-- code for slider sigma -->
+    <div style="float:left;padding-right:25px">
+      <label for="sigmaOOF"> <font color=blue><i>sigmaOOF</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="sigmaOOF" name="sigmaOOF" value="0.1" />
+    </div>
+    <div id="sigmaOOF_slider" name="sigmaOOF_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#sigmaOOF', '#sigmaOOF_slider', 0, 1, 0.1 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
 
 
 
@@ -272,7 +290,12 @@
                     <div style="clear:both"> </div>
                     <!-- end of code for slider -->
   </li>
- </ul>
+</ul>
+
+
+
+
+
 
 
 <input type="submit" value="run" />
