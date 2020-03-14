@@ -270,6 +270,34 @@
 </ul>
   
 
+
+<p>
+  Set the additional parameters used for RuiZhang:
+</p>
+
+<ul>
+
+  <li>
+    <!-- code for slider tau -->
+    <div style="float:left;padding-right:25px">
+      <label for="tauRuiZhang"> <font color=blue><i>tauRuiZhang</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="tauRuiZhang" name="tauRuiZhang" value="0.1" />
+    </div>
+    <div id="tauRuiZhang_slider" name="tauRuiZhang_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#tauRuiZhang', '#tauRuiZhang_slider', 0, 1, 0.1 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
+
+  
+</ul>
+
   
 <p> You can also set the threshold display parameter: </p>
 <ul>
