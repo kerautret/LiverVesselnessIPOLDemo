@@ -138,13 +138,13 @@
                     <div style="float:left;padding-right:25px">
                     <label for="tau"> <font color=blue><i>tau</i></font>:</label>
                      <input type="text" style="font-family:monospace;text-align:right"
-                        size="3" id="tau" name="tau" value="10.0" />
+                        size="3" id="tau" name="tau" value="0.74" />
                     </div>
                     <div id="tau_slider" name="tau_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
                     <script type="text/javascript">
                     // Turn DIV slider into a slider linked to scale
                     $(document).ready(function() {
-                          createLinkedSlider('#tau', '#tau_slider', 0, 1, 0.75);
+                          createLinkedSlider('#tau', '#tau_slider', 0, 1, 0.05);
                     });
                     </script>
                     <div style="clear:both"> </div>
