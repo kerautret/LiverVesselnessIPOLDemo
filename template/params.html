@@ -162,23 +162,87 @@
 
 <ul>
   <li>
-   <!-- code for slider -->
-                    <div style="float:left;padding-right:25px">
-                    <label for="scaleMinRORPO"> <font color=blue><i>scaleMinRORPO</i></font>:</label>
-                     <input type="text" style="font-family:monospace;text-align:right"
-                        size="3" id="scaleMinRORPO" name="scaleMinRORPO" value="10.0" />
-                    </div>
-                    <div id="scaleMinRORPO_slider" name="scaleMinRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
-                    <script type="text/javascript">
-                    // Turn DIV slider into a slider linked to scale
-                    $(document).ready(function() {
-                          createLinkedSlider('#scaleMinRORPO', '#scaleMinRORPO_slider', 0, 1, 100);
-                    });
-                    </script>
-                    <div style="clear:both"> </div>
-                    <!-- end of code for slider -->
+    <!-- code for slider scaleMin -->
+    <div style="float:left;padding-right:25px">
+      <label for="scaleMinRORPO"> <font color=blue><i>scaleMinRORPO</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="scaleMinRORPO" name="scaleMinRORPO" value="10.0" />
+    </div>
+    <div id="scaleMinRORPO_slider" name="scaleMinRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#scaleMinRORPO', '#scaleMinRORPO_slider', 0, 100, 1 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
   </li>
-</li>
+
+
+
+
+    <li>
+    <!-- code for slider factor -->
+    <div style="float:left;padding-right:25px">
+      <label for="factorRORPO"> <font color=blue><i>factorRORPO</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="factorRORPO" name="factorRORPO" value="1.5" />
+    </div>
+    <div id="factorRORPO_slider" name="factorRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#factorRORPO', '#factorRORPO_slider', 0, 100, 1.5 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
+
+
+
+
+  <li>
+    <!-- code for slider nbScales -->
+    <div style="float:left;padding-right:25px">
+      <label for="nbScaleRORPO"> <font color=blue><i>nbScaleRORPO</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="nbScaleRORPO" name="nbScaleRORPO" value="4.0" />
+    </div>
+    <div id="nbScaleRORPO_slider" name="nbScaleRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#nbScaleRORPO', '#nbScaleRORPO_slider', 0, 100, 1 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
+
+
+
+
+    <li>
+    <!-- code for slider core -->
+    <div style="float:left;padding-right:25px">
+      <label for="coreRORPO"> <font color=blue><i>coreRORPO</i></font>:</label>
+      <input type="text" style="font-family:monospace;text-align:right"
+             size="3" id="coreRORPO" name="coreRORPO" value="3.0" />
+    </div>
+    <div id="coreRORPO_slider" name="coreRORPO_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <script type="text/javascript">
+      // Turn DIV slider into a slider linked to scale
+      $(document).ready(function() {
+      createLinkedSlider('#coreRORPO', '#coreRORPO_slider', 0, 10, 3 );
+      });
+    </script>
+    <div style="clear:both"> </div>
+    <!-- end of code for slider -->
+  </li>
+
+
 
   
 </ul>
