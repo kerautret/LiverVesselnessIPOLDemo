@@ -238,7 +238,7 @@ class app(base_app):
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
         fInfo = open(self.work_dir+"info.txt", "w")
-        command_args = ['frangi', '-i' , 'inputVol_0.mha', '-o', 'res.nii', \
+        command_args = ['Antiga', '-i' , 'inputVol_0.mha', '-o', 'res.nii', \
                         '-m', str(float(self.cfg['param']['sigmamin'])),
                         '-M', str(float(self.cfg['param']['sigmamax'])),
                         '-s', str(int(self.cfg['param']['steps'])),
