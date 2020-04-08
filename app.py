@@ -123,7 +123,6 @@ class app(base_app):
 
 
 
-
     @cherrypy.expose
     @init_app
     def params(self, newrun=False, msg=None):
