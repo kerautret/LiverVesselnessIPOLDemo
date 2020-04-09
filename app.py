@@ -23,7 +23,7 @@ class app(base_app):
     demo_src_filename  = 'gjknd_1.1.tgz'
     demo_src_dir = 'LiverVesselness'
 
-
+    baseName = " "
     input_nb = 1 # number of input images
     input_max_pixels = 4096 * 4096 # max size (in pixels) of an input image
     input_max_weight = 1 * 4096 * 4096 # max size (in bytes) of an input file
@@ -116,8 +116,8 @@ class app(base_app):
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
-            #shutil.copy(self.input_dir +baseName+".mha",
-            #            self.work_dir + 'inputVol_0.mha')        
+            shutil.copy(self.input_dir +baseName+".mha",
+                        self.work_dir + 'inputVol_0.mha')        
         self.cfg.save()
 
 
@@ -133,7 +133,7 @@ class app(base_app):
              oldPath = self.work_dir + 'inputVol_0.mha'
              self.clone_input()
              shutil.copy(oldPath, self.work_dir + 'inputVol_0.mha')
-
+             
         # save the input image as 'input_0_selection.png', the one to be used
         img = image(self.work_dir + 'input_0.png')
         img.save(self.work_dir + 'input_0_selection.png')
