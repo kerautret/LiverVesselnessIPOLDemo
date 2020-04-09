@@ -236,6 +236,8 @@ class app(base_app):
         ## process 1: Apply Frangi
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
+        f.write("test write output...")
+        
         fInfo = open(self.work_dir+"info.txt", "w")
         command_args = ['Antiga', '-i' , 'inputVol_0.mha', '-o', 'res.nii', \
                         '-m', str(float(self.cfg['param']['sigmamin'])),
