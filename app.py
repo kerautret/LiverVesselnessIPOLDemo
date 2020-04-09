@@ -112,7 +112,7 @@ class app(base_app):
         '''         
         self.cfg['meta']['is3d'] = True
         if self.cfg['meta']['is3d'] :
-            baseName = (fnames[0])[0:-4]
+            self.baseName = (fnames[0])[0:-4]
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
@@ -235,7 +235,7 @@ class app(base_app):
         ##  -------
         ## process 1: Apply Frangi
         ## ---------
-        f = open(self.work_dir+basename, "w")
+        f = open(self.work_dir+self.baseName, "w")
         f.write("test write output..."+ self.input_dir)
         fInfo = open(self.work_dir+"info.txt", "w")
         command_args = ['Antiga', '-i' , 'toto.png', '-o', 'res.nii', \
