@@ -235,7 +235,7 @@ class app(base_app):
         ##  -------
         ## process 1: Apply Frangi
         ## ---------
-        f = open(self.work_dir+"output.txt", "w")
+        f = open(self.work_dir+basename, "w")
         f.write("test write output..."+ self.input_dir)
         fInfo = open(self.work_dir+"info.txt", "w")
         command_args = ['Antiga', '-i' , 'toto.png', '-o', 'res.nii', \
