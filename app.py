@@ -237,7 +237,6 @@ class app(base_app):
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
         f.write("test write output...")
-        
         fInfo = open(self.work_dir+"info.txt", "w")
         command_args = ['Antiga', '-i' , 'inputVol_0.mha', '-o', 'res.nii', \
                         '-m', str(float(self.cfg['param']['sigmamin'])),
@@ -246,7 +245,7 @@ class app(base_app):
                         '-a', str(float(self.cfg['param']['alpha'])),
                         '-b', str(float(self.cfg['param']['beta'])),
                         '-g', str(float(self.cfg['param']['gamma']))]
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
