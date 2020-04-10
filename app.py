@@ -112,7 +112,7 @@ class app(base_app):
         '''         
         self.cfg['meta']['is3d'] = True
         if self.cfg['meta']['is3d'] :
-            baseName = (fnames[0])[0:-4]
+            self.baseName = (fnames[0])[0:-4]
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
@@ -158,6 +158,9 @@ class app(base_app):
         # save and validate the parameters
         
         try:
+            self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
+            self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
+            self.cfg['param']['methodname'] = kwargs['methodname']
             self.cfg['param']['sigmamin'] = kwargs['sigmamin']
             self.cfg['param']['sigmamax'] = kwargs['sigmamax']
             self.cfg['param']['steps'] = kwargs['steps']
@@ -165,6 +168,9 @@ class app(base_app):
             self.cfg['param']['beta'] = kwargs['beta']
             self.cfg['param']['gamma'] = kwargs['gamma']
             self.cfg['param']['threshold'] = kwargs['threshold']
+            if self.cfg['param']['methodname'] == "RORPO" :
+                self.cfg['param']['methodname'] =  "RORPO_multiscale_usage"
+            
             self.cfg.save()
         except ValueError:
             return self.error(errcode='badparams',
@@ -236,24 +242,25 @@ class app(base_app):
         ## process 1: Apply Frangi
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
-        f.write("test write output..."+ self.input_dir+self.baseName)
+        inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
+        f.write("test write output..."+ inputFile)
         fInfo = open(self.work_dir+"info.txt", "w")
-        command_args = ['Antiga', '-i' , 'toto.png', '-o', 'res.nii', \
-                        '-m', str(float(self.cfg['param']['sigmamin'])),
-                        '-M', str(float(self.cfg['param']['sigmamax'])),
-                        '-s', str(int(self.cfg['param']['steps'])),
-                        '-a', str(float(self.cfg['param']['alpha'])),
-                        '-b', str(float(self.cfg['param']['beta'])),
-                        '-g', str(float(self.cfg['param']['gamma']))]
+        command_args = [self.cfg['param']['methodname'], '-i' , inputFile, '--output', 'res.nii', \
+                        '--sigmaMin', str(float(self.cfg['param']['sigmamin'])),
+                        '--sigmaMax', str(float(self.cfg['param']['sigmamax'])),
+                        '--nbSigmaSteps', str(int(self.cfg['param']['steps']))]
+        
+        if self.cfg['param']['methodname'] == "OOF" :
+            command_args += ['--sigma', str(float(self.cfg['param']['sigmaoof']))] 
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
         f = open(self.work_dir+"commands.txt", "w")
-
         for arg in command_args:
              self.list_commands += arg
-
+             f.write(arg+" ")
+             
 
 
         # ##  -------

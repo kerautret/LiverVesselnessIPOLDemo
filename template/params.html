@@ -16,6 +16,7 @@
       <OPTION>Jerman</OPTION>
       <OPTION>Meijering</OPTION>
       <OPTION>OOF</OPTION>
+      <OPTION>RORPO</OPTION>
       <OPTION>RuiZhang</OPTION>
       <OPTION>Sato</OPTION>
    </SELECT>
@@ -189,15 +190,15 @@
 <li>
     <!-- code for slider sigma -->
     <div style="float:left;padding-right:25px">
-      <label for="sigmaOOF"> <font color=blue><i>sigmaOOF</i></font>:</label>
+      <label for="sigmaoof"> <font color=blue><i>sigmaOOF</i></font>:</label>
       <input type="text" style="font-family:monospace;text-align:right"
-             size="3" id="sigmaOOF" name="sigmaOOF" value="0.1" />
+             size="3" id="sigmaoof" name="sigmaoof" value="0.1" />
     </div>
-    <div id="sigmaOOF_slider" name="sigmaOOF_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+    <div id="sigmaoof_slider" name="sigmaoof_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
     <script type="text/javascript">
       // Turn DIV slider into a slider linked to scale
       $(document).ready(function() {
-      createLinkedSlider('#sigmaOOF', '#sigmaOOF_slider', 0, 1, 0.1 );
+      createLinkedSlider('#sigmaoof', '#sigmaOOF_slider', 0, 1, 0.1 );
       });
     </script>
     <div style="clear:both"> </div>
@@ -220,15 +221,15 @@
   <li>
     <!-- code for slider scaleMin -->
     <div style="float:left;padding-right:25px">
-      <label for="scaleMinRORPO"> <font color=blue><i>scaleMinRORPO</i></font>:</label>
+      <label for="scaleminrorpo"> <font color=blue><i>scaleMinRORPO</i></font>:</label>
       <input type="text" style="font-family:monospace;text-align:right"
-             size="3" id="scaleMinRORPO" name="scaleMinRORPO" value="40.0" />
+             size="3" id="scaleminrorpo" name="scaleminrorpo" value="40.0" />
     </div>
-    <div id="scaleMinRORPO_slider" name="scaleMinRORPO_slider" style="width:200px;float:left;margin-top:4px;font-size:10pt"></div>
+    <div id="scaleminrorpo_slider" name="scaleminrorpo_slider" style="width:200px;float:left;margin-top:4px;font-size:10pt"></div>
     <script type="text/javascript">
       // Turn DIV slider into a slider linked to scale
       $(document).ready(function() {
-      createLinkedSlider('#scaleMinRORPO', '#scaleMinRORPO_slider', 0, 100, 1 );
+      createLinkedSlider('#scaleminrorpo', '#scaleminrorpo_slider', 0, 100, 1 );
       });
     </script>
     <div style="clear:both"> </div>
@@ -240,15 +241,15 @@
     <li>
     <!-- code for slider factor -->
     <div style="float:left;padding-right:25px">
-      <label for="factorRORPO"> <font color=blue><i>factorRORPO</i></font>:</label>
+      <label for="factorrorpo"> <font color=blue><i>factorRORPO</i></font>:</label>
       <input type="text" style="font-family:monospace;text-align:right"
-             size="3" id="factorRORPO" name="factorRORPO" value="1.5" />
+             size="3" id="factorrorpo" name="factorrorpo" value="1.5" />
     </div>
     <div id="factorRORPO_slider" name="factorRORPO_slider" style="width:200px;float:left;margin-top:4px;font-size:10pt"></div>
     <script type="text/javascript">
       // Turn DIV slider into a slider linked to scale
       $(document).ready(function() {
-      createLinkedSlider('#factorRORPO', '#factorRORPO_slider', 0, 100, 1 );
+      createLinkedSlider('#factorrorpo', '#factorRORPO_slider', 0, 100, 1 );
       });
     </script>
     <div style="clear:both"> </div>
@@ -256,6 +257,7 @@
   </li>
 
 
+    
 
   <li>
     <!-- code for slider nbScales -->
