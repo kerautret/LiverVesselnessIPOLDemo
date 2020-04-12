@@ -310,14 +310,38 @@ class app(base_app):
         f = open(self.work_dir+"outputConv2.txt", "w")
         fInfo= open(self.work_dir+"infoConv2.txt", "w")
         command_args = ['volBoundary2obj', '-i' , 'res.vol', \
-                         '-m','128', '-o', 'res.obj','--customDiffuse', '200', '20', '0', '20'  ]        
+                         '-m','128', '-o', 'res.obj','--customDiffuse', '20', '20', '200', '200'  ]        
         p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
 
 
-      
+        # ##  -------
+        # ## process 2c: convert vessel mask to vol
+        # ## ---------
+        maskVessel = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
+        f = open(self.work_dir+"outputVesselMask.txt", "w")
+        fInfo= open(self.work_dir+"infoVesselMask.txt", "w")
+        command_args = ['itk2vol', '-i' , maskVessel, '-t', 'int',\
+                         '--inputMin', '0', '--inputMax','1', '-o', 'liverMask.vol' ]             
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+        
+        # ##  -------
+        # ## process 2c(2): convert vessel mask vol to obj
+        # ## ---------
+        f = open(self.work_dir+"outputVesselMaskObj.txt", "w")
+        fInfo= open(self.work_dir+"infoVesselMaskObj.txt", "w")
+        command_args = ['volBoundary2obj', '-i' , 'liverMask.vol', \
+                         '-m','128', '-o', 'vessel.obj','--customDiffuse', '200', '20', '0', '20'  ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+
         
 
         # # # ##  -------

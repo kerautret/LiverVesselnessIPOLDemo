@@ -39,6 +39,8 @@
     if ( scHeight < "${width}" ){
         document.getElementById('image3d').style.height='600px';
     }
+
+        var components = ["${app.work_url + 'res.obj'}","${app.work_url + 'vessel.obj'}"];
 	var canvas = document.getElementById('cv');
 	var viewer = new JSC3D.Viewer(canvas);
 	var logoTimerID = 0;
@@ -87,7 +89,7 @@
 			logoTimerID = 0;
 			viewer.enableDefaultInputHandler(true);
 		}
-		viewer.replaceSceneFromUrl("${app.work_url + 'res.obj'}");
+		viewer.replaceSceneFromUrl("${app.work_url + 'vessel.obj'}");
 		viewer.update();
 	}
 	</script>
