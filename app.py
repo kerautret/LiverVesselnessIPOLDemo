@@ -158,16 +158,25 @@ class app(base_app):
         # save and validate the parameters
         
         try:
-            self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
-            self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
-            self.cfg['param']['methodname'] = kwargs['methodname']
+            ## Params Std 
             self.cfg['param']['sigmamin'] = kwargs['sigmamin']
             self.cfg['param']['sigmamax'] = kwargs['sigmamax']
             self.cfg['param']['steps'] = kwargs['steps']
+            self.cfg['param']['masktype'] = kwargs['masktype']
+            ## END Params Std
+            
+            ## Params specifics to RORPO
+            self.cfg['param']['scaleminrorpo'] = kwargs['scaleminrorpo']
+            self.cfg['param']['factorrorpo'] = kwargs['factorrorpo']
+            self.cfg['param']['dilatationrorpo'] = kwargs['dilatationrorpo']
+            self.cfg['param']['nbscalerorpo'] = kwargs['nbscalerorpo']
+            ## END Params specifics to RORPO
+            self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
+            self.cfg['param']['methodname'] = kwargs['methodname']
             self.cfg['param']['alpha'] = kwargs['alpha']
             self.cfg['param']['beta'] = kwargs['beta']
             self.cfg['param']['gamma'] = kwargs['gamma']
-            self.cfg['param']['threshold'] = kwargs['threshold']
+            self.cfg['param']['thresholdvisu'] = kwargs['thresholdvisu']
             if self.cfg['param']['methodname'] == "RORPO" :
                 self.cfg['param']['methodname'] =  "RORPO_multiscale_usage"
             
@@ -245,41 +254,89 @@ class app(base_app):
         inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
         f.write("test write output..."+ inputFile)
         fInfo = open(self.work_dir+"info.txt", "w")
-        command_args = [self.cfg['param']['methodname'], '-i' , inputFile, '--output', 'res.nii', \
-                        '--sigmaMin', str(float(self.cfg['param']['sigmamin'])),
-                        '--sigmaMax', str(float(self.cfg['param']['sigmamax'])),
-                        '--nbSigmaSteps', str(int(self.cfg['param']['steps']))]
+        command_args = [self.cfg['param']['methodname'], '--input' , inputFile, '--output', 'res.nii']
+        if self.cfg['param']['methodname'] != "RORPO_multiscale_usage" :
+            command_args += ['--sigmaMin', str(float(self.cfg['param']['sigmamin'])),\
+                             '--sigmaMax', str(float(self.cfg['param']['sigmamax'])),
+                             '--nbSigmaSteps', str(int(self.cfg['param']['steps']))]
+        else :
+            command_args += ['--core','8','--scaleMin', str(float(self.cfg['param']['scaleminrorpo'])),\
+                             '--nbScale', str(int(self.cfg['param']['nbscalerorpo'])),
+                             '--dilationSize', str(int(self.cfg['param']['dilatationrorpo'])),
+                             '--factor', str(float(self.cfg['param']['factorrorpo']))]
+        ## Add specific options if a mask is selected:
+        maskFile = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
+        if self.cfg['param']['masktype'] == "livermask" :
+            maskFile = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
+            command_args += [ '--mask', maskFile ]
+        if self.cfg['param']['masktype'] == "dilatedmask" :
+            maskFile = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
+            command_args += [ '--mask', maskFile ]
+        if self.cfg['param']['masktype'] == "bifurcation" :
+            maskFile = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
+            command_args += [ '--mask', maskFile ]
         
         if self.cfg['param']['methodname'] == "OOF" :
             command_args += ['--sigma', str(float(self.cfg['param']['sigmaoof']))] 
+
+        ff = open(self.work_dir+"commands.txt", "w")
+        for arg in command_args:
+             self.list_commands += arg
+             ff.write(arg+" ")
+             
+        ff.close()
+      
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=180)
+        fInfo.close()
+        f.close()
+
+        
+        # ##  -------
+        # ## process 2a: Convert nii to vol
+        # ## ---------
+        f = open(self.work_dir+"outputMarching.txt", "w")
+        fInfo= open(self.work_dir+"infoConv1.txt", "w")
+        command_args = ['itk2vol', '-i' , 'res.nii', '-t', 'double','--maskImage', maskFile,\
+                         '--inputMin', '0', '--inputMax','1', '-o', 'res.vol' ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
-        f = open(self.work_dir+"commands.txt", "w")
-        for arg in command_args:
-             self.list_commands += arg
-             f.write(arg+" ")
-             
-
-
+    
         # ##  -------
-        # ## process 2: Apply Marching Cube
+        # ## process 2b: Convert  vol to obj
         # ## ---------
+        f = open(self.work_dir+"outputConv2.txt", "w")
+        fInfo= open(self.work_dir+"infoConv2.txt", "w")
+        command_args = ['volBoundary2obj', '-i' , 'res.vol', \
+                         '-m','128', '-o', 'res.obj','--customDiffuse', '200', '20', '0', '20'  ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+
+
+      
+        
+
+        # # # ##  -------
+        # # # ## process 2: Apply Marching Cube
+        # # # ## ---------
         # f = open(self.work_dir+"outputMarching.txt", "w")
         # fInfo = open(self.work_dir+"infoMarching.txt", "w")
-        # command_args = ['3dVolMarchingCubes', '-i' , 'res.nii', '-t', str(int(self.cfg['param']['threshold'])), '-o', 'res.off' ]        
+        # command_args = ['3dVolMarchingCubes', '-i' , 'res.vol', '-t', str(float(self.cfg['param']['thresholdvisu'])), '-o', 'res.off' ]        
         # p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         # self.wait_proc(p, timeout=120)
         # fInfo.close()
         # f.close()
         
-        # ##  -------
-        # ## process 3: convert off to obj
-        # ## ---------
+        # # # ##  -------
+        # # # ## process 3: convert off to obj
+        # # # ## ---------
         # f = open(self.work_dir+"outputConvert.txt", "w")
         # fInfo = open(self.work_dir+"infoConvert.txt", "w")
-        # command_args = ['off2obj', '-i' , 'res.off', '-o', 'res.obj', '-c', '-n' ]        
+        # command_args = ['off2obj', '-i' , 'res.off', '-o', 'res2.obj', '-c', '-n' ]        
         # p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         # self.wait_proc(p, timeout=120)
         # fInfo.close()

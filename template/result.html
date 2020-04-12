@@ -33,7 +33,7 @@
     The visualisation used jsc3d, it looks that your navigator does not supported it, please simply download the files result.obj and result.mtl and use a standard 3d viewer.
 	</canvas> 
 </div>
-	<script type="text/javascript" src="http://ipol-geometry.loria.fr/~kerautre/ipol_demo/FrangiIPOLDemo/static/jsc3d.js"></script>
+	<script type="text/javascript" src="http://ipol-geometry.loria.fr/~kerautre/ipol_demo/LiverVesselnessIPOLDemo/static/jsc3d.js"></script>
 	<script type="text/javascript">
     var scHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     if ( scHeight < "${width}" ){
@@ -42,6 +42,7 @@
 	var canvas = document.getElementById('cv');
 	var viewer = new JSC3D.Viewer(canvas);
 	var logoTimerID = 0;
+        viewer.setParameter('faceCulling', false);
 	viewer.setParameter('InitRotationX', -20);
 	viewer.setParameter('InitRotationY', 20);
 	viewer.setParameter('InitRotationZ', 0);
