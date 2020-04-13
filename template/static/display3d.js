@@ -35,7 +35,8 @@ function init() {
     viewer.setParameter('BackgroundColor1', '#FFFFFF');
     viewer.setParameter('BackgroundColor2', '#EEEEFF');
     viewer.setParameter('RenderMode', 'flat');
-    viewer.setParameter('MipMapping', 'on');
+    viewer.setParameter('Renderer', 'webgl');
+    viewer.setParameter('FaceCulling', 'on');
     viewer.init();
     viewer.update();
     viewer.onloadingcomplete = function (){
@@ -73,21 +74,12 @@ var addModel = function(scene) {
 function updateVisible()
 {
     var meshes = viewer.getScene().getChildren();
-    for(var i=0; i<meshes.length; i++)
-    {
-        if (i >= beginLiver && i <= endLiver)
-        {
-            meshes[i].visible=liverVisible;
-        }
-        if (i >= beginVessel && i <= endVessel)
-        {
-            meshes[i].visible=vesselVisible;
-        }
-        if (i >= beginDilate && i <= endDilate)
-        {
-            meshes[i].visible=dilateVisible;
-        }
-    }
+            meshes[2].visible=liverVisible;
+
+            meshes[1].visible=vesselVisible;
+
+            meshes[0].visible=dilateVisible;
+
     viewer.update();
 }
 
