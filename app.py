@@ -318,7 +318,7 @@ class app(base_app):
 
 
         # ##  -------
-        # ## process 2c: convert vessel mask to vol
+        # ## process 2c: convert liver mask to vol
         # ## ---------
         maskVessel = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
         f = open(self.work_dir+"outputVesselMask.txt", "w")
@@ -331,12 +331,37 @@ class app(base_app):
         f.close()
         
         # ##  -------
-        # ## process 2c(2): convert vessel mask vol to obj
+        # ## process 2c(2): convert liver mask vol to obj
         # ## ---------
         f = open(self.work_dir+"outputVesselMaskObj.txt", "w")
         fInfo= open(self.work_dir+"infoVesselMaskObj.txt", "w")
         command_args = ['volBoundary2obj', '-i' , 'liverMask.vol', \
                          '-m','128', '-o', 'vessel.obj','--customDiffuse', '200', '20', '0', '20'  ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+
+        # ##  -------
+        # ## process 3a: convert vessel mask to vol
+        # ## ---------
+        maskDilate = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
+        f = open(self.work_dir+"outputDilateMask.txt", "w")
+        fInfo= open(self.work_dir+"infoDilateMask.txt", "w")
+        command_args = ['itk2vol', '-i' , maskDilate, '-t', 'int',\
+                         '--inputMin', '0', '--inputMax','1', '-o', 'dilateMask.vol' ]             
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+        
+        # ##  -------
+        # ## process 3b: convert vessel mask vol to obj
+        # ## ---------
+        f = open(self.work_dir+"outputDilateMaskObj.txt", "w")
+        fInfo= open(self.work_dir+"infoDilateMaskObj.txt", "w")
+        command_args = ['volBoundary2obj', '-i' , 'dilateMask.vol', \
+                         '-m','128', '-o', 'dilate.obj','--customDiffuse', '20', '200', '0', '20'  ]        
         p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
