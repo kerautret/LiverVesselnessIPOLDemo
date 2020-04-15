@@ -52,7 +52,7 @@ var addModel = function(scene) {
     var s = viewer.getScene();
     for (var i=0; i<meshes.length; i++) {
         s.addChild(meshes[i]);
-        console.debug(i);
+        console.debug("add mesh:",i);
     }
     viewer.replaceScene(s);
     
