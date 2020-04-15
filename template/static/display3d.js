@@ -21,6 +21,7 @@ var numOfLoaded = 0;
 var loadVessel = false;
 var loadLiver = false;
 var loadDilate = false;
+var loadRef = false;
 var com = function (){ console.debug("complete!!!");};
 
 function init() {
@@ -43,6 +44,7 @@ function init() {
         if (!loadVessel)
         {
             loadModelVessel();
+            loadModelLiver();
         }
     };
 }
@@ -55,18 +57,8 @@ var addModel = function(scene) {
         console.debug("add mesh:",i);
     }
     viewer.replaceScene(s);
+
     
-    if (!loadLiver)
-    {
-        loadModelLiver();
-    }else if(loadDilate)
-    {
-        endLiver=viewer.getScene().getChildren().length-1;
-        console.debug("dilate s:", beginDilate, endDilate);
-        console.debug("vessel s:", beginVessel, endVessel);
-        console.debug("liver s:", beginLiver, endLiver);
-    }
-    loadDilate=true;
 };
 
 
@@ -86,26 +78,24 @@ function updateVisible()
 function loadModelVessel() {
     beginDilate=0;
     endDilate=viewer.getScene().getChildren().length-1;
-    if (!loadVessel){
         loadVessel=true;
         var model = mesh3;
         var loader = new JSC3D.ObjLoader;
         loader.onload = addModel;
         loader.loadFromUrl(model);
-    }
+
 }
 
 function loadModelLiver() {
     beginVessel=endDilate+1;
     endVessel=viewer.getScene().getChildren().length-1;
     beginLiver=viewer.getScene().getChildren().length;
-    if (!loadLiver){
         loadLiver=true;
         var model = mesh2;
         var loader = new JSC3D.ObjLoader;
         loader.onload = addModel;
         loader.loadFromUrl(model);
-    }
+    
 }
 
 
