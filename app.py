@@ -22,7 +22,7 @@ class app(base_app):
     dgtal_src = 'https://github.com/kerautret/DGtal.git'
     demo_src_filename  = 'gjknd_1.1.tgz'
     demo_src_dir = 'LiverVesselness'
-
+    typevisu="mesh"
     baseName = ""
     input_nb = 1 # number of input images
     input_max_pixels = 4096 * 4096 # max size (in pixels) of an input image
@@ -138,7 +138,7 @@ class app(base_app):
         img = image(self.work_dir + 'input_0.png')
         img.save(self.work_dir + 'input_0_selection.png')
         img.save(self.work_dir + 'input_0_selection.pgm')
-
+        
         # initialize subimage parameters
         self.cfg['param'] = {'x1':-1, 'y1':-1, 'x2':-1, 'y2':-1}
         self.cfg.save()
@@ -179,7 +179,7 @@ class app(base_app):
             self.cfg['param']['thresholdvisu'] = kwargs['thresholdvisu']
             if self.cfg['param']['methodname'] == "RORPO" :
                 self.cfg['param']['methodname'] =  "RORPO_multiscale_usage"
-            
+            self.typevisu = kwargs['typevisu']
             self.cfg.save()
         except ValueError:
             return self.error(errcode='badparams',

@@ -11,7 +11,7 @@
 
   <p>1. Select the <font color=blue>method</font> to test:
     <input type="hidden" name="key" value="${app.key}">
-    <SELECT name="methodname">
+    <SELECT id="methodSelect" name="methodname">
       <OPTION>Antiga</OPTION>
       <OPTION>Jerman</OPTION>
       <OPTION>Meijering</OPTION>
@@ -23,9 +23,9 @@
 </p>
 
   </p>
-  
+  <div id="paramNonRORPO"> 
 <p>
- 2. Set the common scale parameters: (used for all methods expect RORPO)
+ 2. Set the common scale parameters: 
 </p>
 
 <ul> 
@@ -87,46 +87,18 @@
   </li>
 
 </ul>
-<p>
- 3. Choose the mask used to set the highlight function:
- <ul>
-   <li> <input type="radio" name="masktype" value="nomask" checked> No mask</li>
-   <li> <input type="radio" name="masktype" value="livermask"> Liver mask </li>
-   <li> <input type="radio" name="masktype" value="dilatedmask"> Dilated vessel mask </li>
-   <li> <input type="radio" name="masktype" value="bifurcation"> Bifurcation vessel mask </li>
- </ul>
+
+
+
+  </div>
+
 </p>
 
-<p>
-  4. You can also set the threshold display parameter:
- <!-- code for slider:   threshold visu -->
-                    <div style="float:left;padding-right:25px">
-                    <label for="thresholdvisu"> <font color=blue><i>threshold Visu</i></font>:</label>
-                     <input type="text" style="font-family:monospace;text-align:right"
-                        size="3" id="thresholdvisu" name="thresholdvisu" value="0.5" />
-                    </div>
-                    <div id="thresholdvisu_slider" name="thresholdvisu_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
-                    <script type="text/javascript">
-                    // Turn DIV slider into a slider linked to scale
-                    $(document).ready(function() {
-                          createLinkedSlider('#thresholdvisu', '#thresholdvisu_slider', 0, 1, 0.1);
-                    });
-                    </script>
-                    <div style="clear:both"> </div>
-                    <!-- end of code for slider -->
 
-                    
- </p>
-
+<div id="paramAntiga">
 <hr>
-
-</p>
-
-<table>
-    <tr>
-      <td width="50%">
   <p>
- Set the additional parameters used for Antiga
+3. Set the additional parameters used in Antiga:
 </p>
 <ul>
   <li> 
@@ -181,11 +153,12 @@
                     <div style="clear:both"> </div>
                     <!-- end of code for slider -->
   </li>
-
-    
 </ul>
+</div>
+<div id="paramJerman" style="display:none;">
+<hr>
   <p>
-  Set the additional parameters used for Jerman and RuiZhang:
+3.  Set the additional parameters used in Jerman and RuiZhang:
 </p>
 
 
@@ -210,9 +183,12 @@
 
   </ul>
 
+</div>
 
-<p>
-  Set the additional parameters used for OOF:
+<div id="paramOOF" style="display:none;">
+<hr>
+  <p>
+3.  Set the additional parameters used for OOF:
 </p>
 
 
@@ -240,12 +216,12 @@
 </ul>
 
 
-
-      </td>
-<td width="50%">
-<p>
-  Set the additional parameters used for RORPO:
-</p>
+      </div>
+ <div id="paramRORPO" style="display:none;">
+<hr>
+   <p>
+3.  Set the additional parameters used in RORPO:
+  </p>
 
 
 <ul>
@@ -327,10 +303,11 @@
     <!-- end of code for slider -->
   </li>
 </ul>
-
-  
-<p>
-  Set the additional parameters used for Sato:
+</div>
+<div id="paramSato" style="display:none;">  
+<hr>
+  <p>
+3.  Set the additional parameters used for Sato:
 </p>
 
 
@@ -372,47 +349,84 @@
     <div style="clear:both"> </div>
     <!-- end of code for slider -->
   </li>
-
-
-</uL>
-
+</ul>
 
 
 
-</td>
-
-</tr>
-    </table>  
+</div>
 
 
 
-<hr>
 
 
- 
 
 
-  
-<p> You can also set the threshold display parameter: </p>
-<ul>
- <li> 
- <!-- code for slider -->
+<p>
+  <hr>
+ 4. Choose the mask used to set the highlight function:
+ <ul>
+   <li> <input type="radio" name="masktype" value="nomask" checked> No mask</li>
+   <li> <input type="radio" name="masktype" value="livermask"> Liver mask </li>
+   <li> <input type="radio" name="masktype" value="dilatedmask"> Dilated vessel mask </li>
+   <li> <input type="radio" name="masktype" value="bifurcation"> Bifurcation vessel mask </li>
+ </ul>
+</p>
+
+
+
+ <p>
+  5. You can choose the visualisation type:
+   <ul>
+     <li> <input type="radio" name="typevisu" value="volumetric" checked > volumetric view </li>
+     <li> <input type="radio" name="typevisu" value="mesh"> Mesh <br>
+      <!-- code for slider:   threshold visu -->
                     <div style="float:left;padding-right:25px">
-                    <label for="threshold"> <font color=blue><i>threshold</i></font>:</label>
+                    <label for="thresholdvisu"> <font color=blue><i>threshold Visu</i></font>:</label>
                      <input type="text" style="font-family:monospace;text-align:right"
-                        size="3" id="threshold" name="threshold" value="50.0" />
+                        size="3" id="thresholdvisu" name="thresholdvisu" value="0.5" />
                     </div>
-                    <div id="threshold_slider" name="threshold_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+                    <div id="thresholdvisu_slider" name="thresholdvisu_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
                     <script type="text/javascript">
                     // Turn DIV slider into a slider linked to scale
                     $(document).ready(function() {
-                          createLinkedSlider('#threshold', '#threshold_slider', 1, 200, 1);
+                          createLinkedSlider('#thresholdvisu', '#thresholdvisu_slider', 0, 1, 0.1);
                     });
                     </script>
                     <div style="clear:both"> </div>
                     <!-- end of code for slider -->
-  </li>
-</ul>
+     </li>
+
+
+   </ul>
+  
+
+                    
+ </p>
+
+
+
+
+  
+<!-- <p> You can also set the threshold display parameter: </p> -->
+<!-- <ul> -->
+<!--  <li>  -->
+<!--  <\!-- code for slider -\-> -->
+<!--                     <div style="float:left;padding-right:25px"> -->
+<!--                     <label for="threshold"> <font color=blue><i>threshold</i></font>:</label> -->
+<!--                      <input type="text" style="font-family:monospace;text-align:right" -->
+<!--                         size="3" id="threshold" name="threshold" value="50.0" /> -->
+<!--                     </div> -->
+<!--                     <div id="threshold_slider" name="threshold_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div> -->
+<!--                     <script type="text/javascript"> -->
+<!--                     // Turn DIV slider into a slider linked to scale -->
+<!--                     $(document).ready(function() { -->
+<!--                           createLinkedSlider('#threshold', '#threshold_slider', 1, 200, 1); -->
+<!--                     }); -->
+<!--                     </script> -->
+<!--                     <div style="clear:both"> </div> -->
+<!--                     <\!-- end of code for slider -\-> -->
+<!--   </li> -->
+<!-- </ul> -->
 
 
 
@@ -432,5 +446,20 @@
 <div>
   <img src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
 </div>
+<script>
+  var paramAntiga = document.getElementById("paramAntiga");
+  var paramJerman = document.getElementById("paramJerman");
+  var paramSato = document.getElementById("paramSato");
+  var paramOOF = document.getElementById("paramOOF");
+  var paramRORPO = document.getElementById("paramRORPO");
+  document.getElementById("methodSelect").onchange = function(){
+  paramAntiga.style.display = (this.selectedIndex == 0) ? "block" : "none";
+  paramJerman.style.display = (this.selectedIndex == 5 || this.selectedIndex == 1 ) ? "block" : "none";
+  paramOOF.style.display = (this.selectedIndex == 3) ? "block" : "none";
+  paramRORPO.style.display = (this.selectedIndex == 4) ? "block" : "none";
+  paramNonRORPO.style.display = (this.selectedIndex == 4) ? "none" : "block";
+  paramSato.style.display = (this.selectedIndex == 6) ? "block" : "none";
+  }
 
+</script>
 <%include file="footer.html" />
