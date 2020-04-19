@@ -163,6 +163,7 @@ class app(base_app):
             self.cfg['param']['sigmamax'] = kwargs['sigmamax']
             self.cfg['param']['steps'] = kwargs['steps']
             self.cfg['param']['masktype'] = kwargs['masktype']
+            self.cfg['param']['masktypedisplay'] = kwargs['masktypedisplay']
             ## END Params Std
             
             ## Params specifics to RORPO
@@ -287,7 +288,7 @@ class app(base_app):
         ff.close()
       
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=180)
+        self.wait_proc(p, timeout=240)
         fInfo.close()
         f.close()
 
@@ -366,6 +367,41 @@ class app(base_app):
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
+
+
+        maskFileDisplay=""
+        if self.cfg['param']['masktypedisplay'] == "livermask" :
+            maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
+        if self.cfg['param']['masktypedisplay'] == "dilatedmask" :
+            maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
+        if self.cfg['param']['masktypedisplay'] == "bifurcation" :
+            maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
+
+        if self.cfg['param']['masktypedisplay'] != "nomask" :
+            # ## ----------
+            # process 4 For display:
+            # ## ----------
+            f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+            fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")
+            command_args = ['itk2vol', '-i' , 'res.nii', \
+                            '-m', maskFileDisplay, '-o', 'res.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]        
+            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            for arg in command_args:
+                self.list_commands += arg
+                f.write(arg+" ")
+
+            self.wait_proc(p, timeout=120)
+            fInfo.close()
+            f.close()
+            f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
+            fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
+            command_args = ['vol2itk', '-i' , 'res.vol', '-o', 'res.nii' ]        
+            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            self.wait_proc(p, timeout=120)
+            fInfo.close()
+            f.close()
+
+
 
         
 
