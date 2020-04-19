@@ -363,19 +363,18 @@
 
 <p>
   <hr>
- 4. Choose the mask used to set the highlight function:
- <ul>
-   <li> <input type="radio" name="masktype" value="nomask" checked> No mask</li>
-   <li> <input type="radio" name="masktype" value="livermask"> Liver mask </li>
-   <li> <input type="radio" name="masktype" value="dilatedmask"> Dilated vessel mask </li>
-   <li> <input type="radio" name="masktype" value="bifurcation"> Bifurcation vessel mask </li>
- </ul>
-</p>
-
-
-
- <p>
-  5. You can choose the visualisation type:
+  4. Set the display:
+  
+  <ul>
+    <li> Choose the mask used to set the highlight function:
+       <SELECT id="methodSelect" name="masktype">
+      <OPTION value="nomask" >No mask</OPTION>
+      <OPTION value="livermask">Liver mask</OPTION>
+      <OPTION value="dilatedmask">Dilated vessel mask</OPTION>
+      <OPTION value="bifurcation"> Bifurcation vessel mask</OPTION>
+      </SELECT>
+    </li>
+    <li> Choose the visualisation type: 
    <ul>
      <li> <input type="radio" name="typevisu" value="volumetric" checked > volumetric view </li>
      <li> <input type="radio" name="typevisu" value="mesh"> Mesh <br>
@@ -395,13 +394,16 @@
                     <div style="clear:both"> </div>
                     <!-- end of code for slider -->
      </li>
-
-
    </ul>
-  
 
-                    
- </p>
+    </li>
+  </ul>
+</p>
+
+
+
+ <p>
+   </p>
 
 
 
