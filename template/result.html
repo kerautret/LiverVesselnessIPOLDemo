@@ -15,7 +15,17 @@
   %endif
 </p>
 <p>
-  The result was obtained by the following scale  parameters:
+  The result was obtained by the following scale parameters (type <i><font color="blue" >${app.typevisu}</font></i>, displayed on  <i><font color="blue">
+%if app.cfg['param']['masktypedisplay'] == "dilatedmask" :
+ dilated vessel mask</font></i>).
+%elif app.cfg['param']['masktypedisplay'] == "livermask" :
+ liver mask </font></i>).
+%elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
+ vessel bifurcation mask</font></i>).
+%else:
+no mask</font></i>).
+%endif
+
   <ul>
   %if  app.cfg['param']['methodname'] != 'RORPO_multiscale_usage' :
   <li>  <label for="sigmamin"> <font color=blue><i>sigma min</i></font>: ${app.cfg['param']['sigmamin']}</label></li>
@@ -40,7 +50,7 @@
   %elif  app.cfg['param']['methodname'] == 'Jerman' or app.cfg['param']['methodname'] == 'RuiZhang'   :
   <p>And specific <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i>  parameters:
     <ul>
-         <label for="tau"> <font color=blue><i>tau</i></font>:${app.cfg['param']['tau']}</label>
+         <label for="tau"> <font color=blue><i>tau</i></font>: ${app.cfg['param']['tau']}</label>
   </ul>
  </p> 
   %elif  app.cfg['param']['methodname'] == 'OOF'   :
