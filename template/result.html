@@ -8,9 +8,69 @@
 
 
 <p>
-  The algorithm was applied with a 25x100mm patch size
+  %if  app.cfg['param']['methodname'] != 'RORPO_multiscale_usage' :
+  The algorithm result obtained with the method <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i> is displayed hereafter.
+  %else:
+  The algorithm result obtained with the method <i><font color="blue" >RORPO</font></i> is displayed hereafter.
+  %endif
+</p>
+<p>
+  The result was obtained by the following scale  parameters:
+  <ul>
+  %if  app.cfg['param']['methodname'] != 'RORPO_multiscale_usage' :
+  <li>  <label for="sigmamin"> <font color=blue><i>sigma min</i></font>: ${app.cfg['param']['sigmamin']}</label></li>
+  <li>  <label for="sigmamax"> <font color=blue><i>sigma max</i></font>: ${app.cfg['param']['sigmamax']}</label></li>
+  <li>  <label for="steps"> <font color=blue><i>steps</i></font>: ${app.cfg['param']['steps']}</label></li>
+  %else:
+  <li> <label for="scaleminrorpo"> <font color=blue><i>scaleMinRORPO</i></font>: ${app.cfg['param']['scaleminrorpo']}</label></li>
+  <li> <label for="factorrorpo"> <font color=blue><i>factorRORPO</i></font>: ${app.cfg['param']['factorrorpo']}</label> </li>
+  <li><label for="nbscalerorpo"> <font color=blue><i>nbScaleRORPO</i></font>: ${app.cfg['param']['nbscalerorpo']}</label></li>
+  <li><label for="dilatationrorpo"> <font color=blue><i>dilatationRORPO</i></font>: ${app.cfg['param']['dilatationrorpo']}</label></li>
+  </ul>
+  %endif
+  </p>
+  %if  app.cfg['param']['methodname'] == 'Antiga' :
+  <p>And specific <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i>  parameters:
+  <ul>
+    <li> <label for="alpha"> <font color=blue><i>alpha</i></font>:${app.cfg['param']['alpha']}</label></li>
+    <li> <label for="beta"> <font color=blue><i>beta</i></font>:${app.cfg['param']['beta']}</label></li>
+    <li> <label for="gamma"> <font color=blue><i>gamma</i></font>:${app.cfg['param']['gamma']}</label></li>
+  </ul>
+ </p> 
+  %elif  app.cfg['param']['methodname'] == 'Jerman' or app.cfg['param']['methodname'] == 'RuiZhang'   :
+  <p>And specific <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i>  parameters:
+    <ul>
+         <label for="tau"> <font color=blue><i>tau</i></font>:${app.cfg['param']['tau']}</label>
+  </ul>
+ </p> 
+  %elif  app.cfg['param']['methodname'] == 'OOF'   :
+  <p>And specific <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i>  parameters:
+    <ul>
+      <label for="sigmaoof"> <font color=blue><i>sigmaOOF</i></font>:  ${app.cfg['param']['sigmaoof']}</label>
+  </ul>
+ </p>
+  %elif  app.cfg['param']['methodname'] == 'Sato'   :
+  <p>And specific <i><font color="blue" > ${app.cfg['param']['methodname']}</font></i>  parameters:
+    <ul>
+      <label for="alpha1sato"> <font color=blue><i>alpha1Sato</i></font>:  ${app.cfg['param']['alpha1sato']}</label>
+      <label for="alpha2sato"> <font color=blue><i>alpha1Sato</i></font>:  ${app.cfg['param']['alpha1sato']}</label>
+    </ul>
+ </p>
 
-<ul>
+  
+  %endif
+
+  <ul>
+    
+<form action="${app.base_url + 'params'}" method="get">
+  <div class="action">
+    Restart this algorithm with new parameters.
+    <input type="hidden" name="key" value="${app.key}">
+    <input type="hidden" name="newrun" value="1">
+    <input type="submit" value="new parameters" />
+  </div>
+</form>
+
 
 <h2>Result</h2>
 
@@ -87,6 +147,17 @@ function showMesh() {
       </script>
  
 
+<h2>
+  <a class="toggle" href="#commands" onclick="toggle('commands');">
+    Additional Info
+  </a>
+</h2>
+<div id="commands" style="display:none">
+<p>
+The algorithm ran with the following commands:
+<pre class="stdio"> ${app.list_commands} </pre>
+</p>
+</div>
 
 <%include file="footer.html" />
 <%include file="archive_info.html" />

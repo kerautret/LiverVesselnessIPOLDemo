@@ -129,10 +129,10 @@ class app(base_app):
         """Parameter handling (optional crop)."""
 
         # if a new experiment on the same image, clone data
-        if newrun:
-             oldPath = self.work_dir + 'inputVol_0.mha'
-             self.clone_input()
-             shutil.copy(oldPath, self.work_dir + 'inputVol_0.mha')
+        #if newrun:
+             #oldPath = self.work_dir + 'inputVol_0.mha'
+             #self.clone_input()
+             #shutil.copy(oldPath, self.work_dir + 'inputVol_0.mha')
              
         # save the input image as 'input_0_selection.png', the one to be used
         img = image(self.work_dir + 'input_0.png')
@@ -171,16 +171,29 @@ class app(base_app):
             self.cfg['param']['factorrorpo'] = kwargs['factorrorpo']
             self.cfg['param']['dilatationrorpo'] = kwargs['dilatationrorpo']
             self.cfg['param']['nbscalerorpo'] = kwargs['nbscalerorpo']
+
             ## END Params specifics to RORPO
             self.cfg['param']['sigmaoof'] = kwargs['sigmaoof']
             self.cfg['param']['methodname'] = kwargs['methodname']
             self.cfg['param']['alpha'] = kwargs['alpha']
             self.cfg['param']['beta'] = kwargs['beta']
             self.cfg['param']['gamma'] = kwargs['gamma']
-            self.cfg['param']['thresholdvisu'] = kwargs['thresholdvisu']
+
+            
+            ## Param specific to Jerman and RuiZhang
+            self.cfg['param']['tau'] = kwargs['tau']
+
+            ## Param specific to OOF:
+            self.cfg['param']['sigmaood'] = kwargs['sigmaoof']
+            
+            ## Param specific to Sato
+            self.cfg['param']['alpha1sato'] = kwargs['alpha1sato']
+            self.cfg['param']['alpha2sato'] = kwargs['alpha2sato']            
+
             if self.cfg['param']['methodname'] == "RORPO" :
                 self.cfg['param']['methodname'] =  "RORPO_multiscale_usage"
             self.typevisu = kwargs['typevisu']
+            self.cfg['param']['thresholdvisu'] = kwargs['thresholdvisu']
             self.cfg.save()
         except ValueError:
             return self.error(errcode='badparams',
@@ -279,7 +292,11 @@ class app(base_app):
         
         if self.cfg['param']['methodname'] == "OOF" :
             command_args += ['--sigma', str(float(self.cfg['param']['sigmaoof']))] 
-
+        if self.cfg['param']['methodname'] == "Jerman" or  self.cfg['param']['methodname'] == "RuiZhang":
+            command_args += ['--tau', str(float(self.cfg['param']['tau']))] 
+        if self.cfg['param']['methodname'] == "Sato":
+            command_args += ['--alpha1', str(float(self.cfg['param']['alpha1sato']))] 
+            command_args += ['--alpha2', str(float(self.cfg['param']['alpha2sato']))] 
         ff = open(self.work_dir+"commands.txt", "w")
         for arg in command_args:
              self.list_commands += arg
@@ -288,7 +305,7 @@ class app(base_app):
         ff.close()
       
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=240)
+        self.wait_proc(p, timeout=300)
         fInfo.close()
         f.close()
 
