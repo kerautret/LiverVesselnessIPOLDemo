@@ -83,6 +83,7 @@ no mask</font></i>).
 
 
 <h2>Result</h2>
+In addition to the 3D visualisation, you can can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or <a href="${app.work_url + 'res.obj'}"> .obj</a> format from a threshol (set ))  . 
 
 %if  app.typevisu == 'mesh' :
   <div id="visuMesh" style="float: center; width:560px; margin:auto; position:relative; font-size: 9pt; color: #777777;">
@@ -105,10 +106,11 @@ no mask</font></i>).
        class="itk-vtk-viewer"
          data-viewport="650x400"
         data-background-color="ffffff"
-       data-url="${app.work_url + 'res.nii'}"
+       data-url="${app.work_url + 'res.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/vesselsIso.off'}"
+      
       />
 
-  <script type="text/javascript" src="https://unpkg.io/itk-vtk-viewer@9.18.0/dist/itkVtkViewerCDN.js"></script>
+  <script type="text/javascript" src="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/itkVtkViewerCDN.js"></script>
    </div>
   </center>
 <br>

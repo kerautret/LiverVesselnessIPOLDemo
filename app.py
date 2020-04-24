@@ -394,33 +394,32 @@ class app(base_app):
         if self.cfg['param']['masktypedisplay'] == "bifurcation" :
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
 
+      
+        # ## ----------
+        # process 4 For display:
+        # ## ----------
+        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+        fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
+        command_args = ['itk2vol', '-i' , 'res.nii', \
+                        '-o', 'res.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]
         if self.cfg['param']['masktypedisplay'] != "nomask" :
-            # ## ----------
-            # process 4 For display:
-            # ## ----------
-            f = open(self.work_dir+"outputMaskDisplay.txt", "w")
-            fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")
-            command_args = ['itk2vol', '-i' , 'res.nii', \
-                            '-m', maskFileDisplay, '-o', 'res.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]        
-            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-            for arg in command_args:
-                self.list_commands += arg
-                f.write(arg+" ")
-
-            self.wait_proc(p, timeout=120)
-            fInfo.close()
-            f.close()
-            f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
-            fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
-            command_args = ['vol2itk', '-i' , 'res.vol', '-o', 'res.nii' ]        
-            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-            self.wait_proc(p, timeout=120)
-            fInfo.close()
-            f.close()
-
-
-
-        
+           command_args += ['-m', maskFileDisplay]
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        for arg in command_args:
+            self.list_commands += arg
+            f.write(arg+" ")
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+        f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
+        fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
+        command_args = ['vol2itk', '-i' , 'res.vol', '-o', 'res.nii' ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+ 
+     
 
         # # # ##  -------
         # # # ## process 2: Apply Marching Cube
