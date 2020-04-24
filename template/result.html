@@ -15,7 +15,7 @@
   %endif
 </p>
 <p>
-  The result was obtained by the following scale parameters (type <i><font color="blue" >${app.typevisu}</font></i>, displayed on  <i><font color="blue">
+  The result was obtained by the following scale parameters (displayed on  <i><font color="blue">
 %if app.cfg['param']['masktypedisplay'] == "dilatedmask" :
  dilated vessel mask</font></i>).
 %elif app.cfg['param']['masktypedisplay'] == "livermask" :
@@ -83,23 +83,8 @@ no mask</font></i>).
 
 
 <h2>Result</h2>
-In addition to the 3D visualisation, you can can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or <a href="${app.work_url + 'res.obj'}"> .obj</a> format from a threshol (set ))  . 
+In addition to the 3D visualisation, you can can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${app.work_url + 'ref.obj'}"> .obj</a> format. 
 
-%if  app.typevisu == 'mesh' :
-  <div id="visuMesh" style="float: center; width:560px; margin:auto; position:relative; font-size: 9pt; color: #777777;">
-    <div>
-		<button id="loadVessel" onclick="switchLiver();">switch Liver</button>
-		<button id="loadVessel" onclick="switchDilate();">switch Dilate</button>
-		<button id="loadVessel" onclick="switchVessel();">switch Vessel</button>
-                <input type="hidden"  id="mesh1" value="${app.work_url + 'dilate.obj'}">
-                <input type="hidden"  id="mesh2" value="${app.work_url + 'vessel.obj'}">
-                <input type="hidden"  id="mesh3" value="${app.work_url + 'res.obj'}">
-     
-    </div>
-    <br>
-    <canvas id="cv" style="fload:center; border: 1px solid;" width="560" height="420" ></canvas>
-    </div>
-  %else:
 
   <center>
   <div id="visuVol" 
@@ -115,7 +100,6 @@ In addition to the 3D visualisation, you can can download the result in <a href=
   </center>
 <br>
   
-  %endif
   
 
 
