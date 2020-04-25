@@ -22,7 +22,7 @@ class app(base_app):
     dgtal_src = 'https://github.com/kerautret/DGtal.git'
     demo_src_filename  = 'gjknd_1.1.tgz'
     demo_src_dir = 'LiverVesselness'
-    
+    refName = "ref"
     baseName = ""
     input_nb = 1 # number of input images
     input_max_pixels = 4096 * 4096 # max size (in pixels) of an input image
@@ -389,6 +389,8 @@ class app(base_app):
         maskFileDisplay=""
         if self.cfg['param']['masktypedisplay'] == "livermask" :
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
+            if self.baseName[2:6] == "irca" :
+                self.refName = "refMaskLiver"
         if self.cfg['param']['masktypedisplay'] == "dilatedmask" :
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
         if self.cfg['param']['masktypedisplay'] == "bifurcation" :

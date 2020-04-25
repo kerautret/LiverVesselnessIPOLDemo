@@ -83,7 +83,7 @@ no mask</font></i>).
 
 
 <h2>Result</h2>
-In addition to the 3D visualisation, you can can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.off'}">.off</a> format. 
+In addition to the 3D visualisation, you can can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">.off</a> format. 
 
 
   <center>
@@ -91,7 +91,7 @@ In addition to the 3D visualisation, you can can download the result in <a href=
        class="itk-vtk-viewer"
          data-viewport="650x400"
         data-background-color="ffffff"
-       data-url="${app.work_url + 'res.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.off'}"
+       data-url="${app.work_url + 'res.nii'},${app.work_url + 'vessel.obj'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}"
       
       />
 
@@ -119,22 +119,6 @@ In addition to the 3D visualisation, you can can download the result in <a href=
 </div>    
 
 
-<script>
-function showVolume() {
-  var v = document.getElementById("visuVol");
-  var m = document.getElementById("visuMesh");
-  v.style.display = "block";
-  m.style.display = "none";
-}
-
-function showMesh() {
-  var v = document.getElementById("visuVol");
-  var m = document.getElementById("visuMesh");
-  v.style.display = "none";
-  m.style.display = "block";
-}
-
- 
 
 <h2>
   <a class="toggle" href="#commands" onclick="toggle('commands');">
