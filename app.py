@@ -260,6 +260,7 @@ class app(base_app):
         this one needs no parameter
         """
         #radius = self.cfg['param']['radius']
+        self.cfg['info']['run_time'] = time.time()
 
         ##  -------
         ## process 1: Apply Frangi
@@ -303,11 +304,14 @@ class app(base_app):
              ff.write(arg+" ")
              
         ff.close()
-      
+
+
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=300)
         fInfo.close()
         f.close()
+        self.cfg['info']['run_time'] = time.time() - \
+                                       self.cfg['info']['run_time']   
 
         
         # ##  -------
@@ -416,6 +420,30 @@ class app(base_app):
         f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
         fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
         command_args = ['vol2itk', '-i' , 'res.vol', '-o', 'res.nii' ]        
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+ 
+        # ## ----------
+        # process 4 For display:
+        # ## ----------
+        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+        fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
+        command_args = ['itk2vol', '-i' , inputFile, \
+                        '-o', 'input.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]
+        if self.cfg['param']['masktypedisplay'] != "nomask" :
+           command_args += ['-m', maskFileDisplay]
+        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        for arg in command_args:
+            self.list_commands += arg
+            f.write(arg+" ")
+        self.wait_proc(p, timeout=120)
+        fInfo.close()
+        f.close()
+        f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
+        fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
+        command_args = ['vol2itk', '-i' , 'input.vol', '-o', inputFile ]        
         p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=120)
         fInfo.close()
