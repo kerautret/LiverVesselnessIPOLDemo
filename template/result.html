@@ -107,18 +107,28 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
 
 <div id="image3d" class="gallery" style="height:${560}px">
     <ul class="index">
+      %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
       <li>
-        %if app.cfg['param']['masktypedisplay'] != "livermask" or  app.baseName[2:6] != "irca" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image
-          %elif app.cfg['param']['masktypedisplay'] == "livermask" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'}">Input image
-          
-          %endif
+        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'}">Input masked image          
+	<span>
+	  <img width="${460}px" src="${app.work_url + 'input_0.png'}" alt="input masked image" />
+	</span>
+      </a>
+ </li>
+%endif
+      
+      <li>
+        %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
+        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Non masked source	  
+       %else:
+          <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image
+       %endif
 	<span>
 	  <img width="${460}px" src="${app.work_url + 'input_0.png'}" alt="input" />
 	</span>
       </a>
- </li>
+      </li>
+      
  <li>
 %if app.baseName[2:6] == "irca":
 <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/vesselsIso.nii'}"> ground truth
