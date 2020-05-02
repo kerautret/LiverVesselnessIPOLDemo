@@ -371,7 +371,7 @@
 <p>
   <hr>
   4. Customize the display by choosing the mask used to set the highlight function:
-       <SELECT id="methodSelect" name="masktypedisplay">
+       <SELECT id="inputmaskliverView" name="masktypedisplay">
        <OPTION value="nomask" >No mask</OPTION>
         <OPTION value="livermask">Liver mask (for IRCAD only)</OPTION>
         <OPTION value="dilatedmask">Dilated vessel mask</OPTION>
@@ -427,7 +427,8 @@
 <hr />
 
 <div>
-  <img src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
+  <img id="inputall" src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
+  <img style="display:none;" id="inputmaskliver" src="${app.work_url + 'input_0MaskLiver.png'}" alt="${}" width="400"/>
 </div>
 <script>
   var paramAntiga = document.getElementById("paramAntiga");
@@ -443,6 +444,11 @@
   paramNonRORPO.style.display = (this.selectedIndex == 4) ? "none" : "block";
   paramSato.style.display = (this.selectedIndex == 6) ? "block" : "none";
   }
-
+  document.getElementById("inputmaskliverView").onchange = function(){
+  inputmaskliver.style.display = (this.selectedIndex==1)? "block" : "none";
+  inputmaskliver.style.display = (this.selectedIndex!=1)? "none" : "block";
+  inputall.style.display = (this.selectedIndex==0)? "block" : "none";
+  inputall.style.display = (this.selectedIndex!=0)? "none" : "block";
+  }
 </script>
 <%include file="footer.html" />

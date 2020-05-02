@@ -4,7 +4,7 @@
 
  
 
-<body  onload="init()">
+<body>
 
 
 <p>
@@ -87,7 +87,11 @@ no mask</font></i>).
 In addition to the 3D visualisation, you can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">.off</a> format.  You can also check the input: <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}"> here</a>
 
 
-  <center>
+
+  <div style="position: relative;float: center; display: flex;
+  justify-content: center;
+  align-items: center;">
+
     <div id="visuVol"
          style="border: 2px solid gray;"
        class="itk-vtk-viewer"
@@ -97,7 +101,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
       />
   <script type="text/javascript" src="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/itkVtkViewerCDN.js"></script>
    </div>
-  </center>
+</div>
+
+
 <br>
 
 
