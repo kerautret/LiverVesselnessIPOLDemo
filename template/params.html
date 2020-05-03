@@ -22,7 +22,7 @@
    </SELECT>
   </p>
 <p>  Method computed with: 
-  <SELECT id="methodSelect" name="masktype">
+  <SELECT id="masktype" name="masktype">
        <OPTION value="nomask" >No mask</OPTION>
         <OPTION value="livermask">Liver mask (for IRCAD only)</OPTION>
         <OPTION value="dilatedmask">Dilated vessel mask</OPTION>
@@ -198,9 +198,7 @@
 3.  Set the additional parameters used for OOF:
 </p>
 
-
 <ul>
-
 <li>
     <!-- code for slider sigma -->
     <div style="float:left;padding-right:25px">
@@ -338,8 +336,8 @@
     <div style="clear:both"> </div>
     <!-- end of code for slider -->
   </li>
-
 <li>
+  
     <!-- code for slider sigma -->
     <div style="float:left;padding-right:25px">
       <label for="alpha2sato"> <font color=blue><i>alpha2sato</i></font>:</label>
@@ -357,9 +355,6 @@
     <!-- end of code for slider -->
   </li>
 </ul>
-
-
-
 </div>
 
 
@@ -370,46 +365,14 @@
 
 <p>
   <hr>
-  4. Customize the display by choosing the mask used to set the highlight function:
+  <div id="maskdisplay" style="color:blue;" >  4. Customize the display by choosing the mask applied to the result :
        <SELECT id="inputmaskliverView" name="masktypedisplay">
        <OPTION value="nomask" >No mask</OPTION>
         <OPTION value="livermask">Liver mask (for IRCAD only)</OPTION>
         <OPTION value="dilatedmask">Dilated vessel mask</OPTION>
        <OPTION value="bifurcation"> Bifurcation vessel mask</OPTION>
-      </SELECT>
-
-
+      </SELECT></div>
 </p>
-
-
-
- <p>
-   </p>
-
-
-
-
-  
-<!-- <p> You can also set the threshold display parameter: </p> -->
-<!-- <ul> -->
-<!--  <li>  -->
-<!--  <\!-- code for slider -\-> -->
-<!--                     <div style="float:left;padding-right:25px"> -->
-<!--                     <label for="threshold"> <font color=blue><i>threshold</i></font>:</label> -->
-<!--                      <input type="text" style="font-family:monospace;text-align:right" -->
-<!--                         size="3" id="threshold" name="threshold" value="50.0" /> -->
-<!--                     </div> -->
-<!--                     <div id="threshold_slider" name="threshold_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div> -->
-<!--                     <script type="text/javascript"> -->
-<!--                     // Turn DIV slider into a slider linked to scale -->
-<!--                     $(document).ready(function() { -->
-<!--                           createLinkedSlider('#threshold', '#threshold_slider', 1, 200, 1); -->
-<!--                     }); -->
-<!--                     </script> -->
-<!--                     <div style="clear:both"> </div> -->
-<!--                     <\!-- end of code for slider -\-> -->
-<!--   </li> -->
-<!-- </ul> -->
 
 
 
@@ -424,7 +387,7 @@
 
 </form>
 
-<hr />
+<hr/>
 
 <div>
   <img id="inputall" src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
@@ -439,6 +402,9 @@
   var paramSato = document.getElementById("paramSato");
   var paramOOF = document.getElementById("paramOOF");
   var paramRORPO = document.getElementById("paramRORPO");
+  document.getElementById("masktype").onchange = function(){
+  maskdisplay.style.color = (this.selectedIndex  == 0) ? 'black': 'darkred'; 
+  }
   document.getElementById("methodSelect").onchange = function(){
   paramAntiga.style.display = (this.selectedIndex == 0) ? "block" : "none";
   paramJerman.style.display = (this.selectedIndex == 5 || this.selectedIndex == 1 ) ? "block" : "none";
