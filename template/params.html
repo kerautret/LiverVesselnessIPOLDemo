@@ -429,6 +429,7 @@
 <div>
   <img id="inputall" src="${app.work_url + 'input_0.png'}" alt="${}" width="400"/>
   <img style="display:none;" id="inputmaskliver" src="${app.work_url + 'input_0MaskLiver.png'}" alt="${}" width="400"/>
+  <img style="display:none;" id="inputmaskvessel" src="${app.work_url + 'input_0MaskVessel.png'}" alt="${}" width="400"/>
 </div>
 <script>
   var paramAntiga = document.getElementById("paramAntiga");
@@ -446,9 +447,9 @@
   }
   document.getElementById("inputmaskliverView").onchange = function(){
   inputmaskliver.style.display = (this.selectedIndex==1)? "block" : "none";
-  inputmaskliver.style.display = (this.selectedIndex!=1)? "none" : "block";
+  inputmaskvessel.style.display = (this.selectedIndex==2)? "block" : "none";
   inputall.style.display = (this.selectedIndex==0)? "block" : "none";
-  inputall.style.display = (this.selectedIndex!=0)? "none" : "block";
+
   }
 </script>
 <%include file="footer.html" />
