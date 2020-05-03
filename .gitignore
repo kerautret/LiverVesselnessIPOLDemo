@@ -1,0 +1,9 @@
+archive
+bin
+.__*
+._*
+__init__.pyc
+tmp
+.DS_Store
+SrcManual
+*~
