@@ -368,8 +368,8 @@
   <div id="maskdisplay" style="color:black;" >  4. Customize the display by choosing the mask applied to the result :
        <SELECT id="inputmaskliverView" name="masktypedisplay">
        <OPTION value="nomask" >No mask</OPTION>
-        <OPTION value="livermask">Liver mask (for IRCAD only)</OPTION>
-        <OPTION value="dilatedmask">Dilated vessel mask</OPTION>
+        <OPTION  value="livermask" >Liver mask (for IRCAD only)</OPTION>
+        <OPTION  style='color: #cccc00' value="dilatedmask">Dilated vessel mask</OPTION>
        <OPTION value="bifurcation"> Bifurcation vessel mask</OPTION>
       </SELECT></div>
 </p>
@@ -404,6 +404,7 @@
   var paramRORPO = document.getElementById("paramRORPO");
   document.getElementById("masktype").onchange = function(){
   maskdisplay.style.color = (this.selectedIndex  == 0) ? 'black': 'darkred'; 
+  optvessel.style.color = (this.selectedIndex  == 0) ? 'black': 'darkred'; 
   }
   document.getElementById("methodSelect").onchange = function(){
   paramAntiga.style.display = (this.selectedIndex == 0) ? "block" : "none";
