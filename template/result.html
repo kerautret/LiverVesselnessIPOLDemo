@@ -123,9 +123,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
        %elif app.cfg['param']['masktypedisplay'] == "livermask" :
        <img width="${460}px" src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />
        %elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
-       <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
+       <img width="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
        %elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
-       <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
+       <img width="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
        %endif
        	</span>
       </a>
@@ -136,17 +136,17 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
         %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
         <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Non masked source	  
        %else:
-          <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image
+          <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image 
        %endif
 	    <span>
               %if app.cfg['param']['masktypedisplay'] == "nomask" :
                   <img width="${460}px" src="${app.work_url + 'input_0_selection.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "livermask" :
+              %elif app.cfg['param']['masktypedisplay'] == "livermask" :
                   <img width="${460}px" src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
-                  <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
-                  <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
+              %elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
+                  <img width="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
+               %elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
+                  <img width="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
                   %endif
 	</span>
       </a>
@@ -176,9 +176,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
                   %elif app.cfg['param']['masktypedisplay'] == "livermask" :
                   <img width="${460}px" src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />
                   %elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
-                  <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
+                  <img width="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
                   %elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
-                  <imgwidth="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
+                  <img width="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
                   %endif
 	</span>
       </a>
