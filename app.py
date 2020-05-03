@@ -113,6 +113,9 @@ class app(base_app):
         self.cfg['meta']['is3d'] = True
         if self.cfg['meta']['is3d'] :
             self.baseName = (fnames[0])[0:-4]
+            shutil.copy(self.input_dir +self.baseName+"MaskLiver.png", self.work_dir + 'input_0MaskLiver.png')
+            shutil.copy(self.input_dir +self.baseName+"MaskVessel.png", self.work_dir + 'input_0MaskVessel.png')
+            shutil.copy(self.input_dir +self.baseName+"MaskBifurcations.png", self.work_dir + 'input_0MaskBifurcations.png')
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
@@ -138,7 +141,8 @@ class app(base_app):
         img = image(self.work_dir + 'input_0.png')
         img.save(self.work_dir + 'input_0_selection.png')
         img.save(self.work_dir + 'input_0_selection.pgm')
-        
+
+
         # initialize subimage parameters
         self.cfg['param'] = {'x1':-1, 'y1':-1, 'x2':-1, 'y2':-1}
         self.cfg.save()
@@ -219,7 +223,7 @@ class app(base_app):
                  
         # run the algorithm
         #self.commands = ""
-
+            
         try:
             self.run_algo(self)
         except TimeoutError:

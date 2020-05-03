@@ -4,6 +4,17 @@
 
 <h2>Input Image</h2>
 
+%if app.cfg['param']['masktypedisplay'] == "nomask" :
 <img src="${app.work_url + 'input_0_selection.png'}" width="400" />
+%elif app.cfg['param']['masktypedisplay'] == "livermask" :
+<img src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />
+%elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
+<img src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
+%elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
+<img src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
+%endif
+
+
+
 
 <%include file="footer.html" />
