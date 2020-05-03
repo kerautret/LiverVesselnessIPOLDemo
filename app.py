@@ -115,6 +115,7 @@ class app(base_app):
             self.baseName = (fnames[0])[0:-4]
             shutil.copy(self.input_dir +self.baseName+"MaskLiver.png", self.work_dir + 'input_0MaskLiver.png')
             shutil.copy(self.input_dir +self.baseName+"MaskVessel.png", self.work_dir + 'input_0MaskVessel.png')
+            shutil.copy(self.input_dir +self.baseName+"MaskBifurcations.png", self.work_dir + 'input_0MaskBifurcations.png')
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
