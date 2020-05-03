@@ -116,6 +116,10 @@ class app(base_app):
             shutil.copy(self.input_dir +self.baseName+"MaskLiver.png", self.work_dir + 'input_0MaskLiver.png')
             shutil.copy(self.input_dir +self.baseName+"MaskVessel.png", self.work_dir + 'input_0MaskVessel.png')
             shutil.copy(self.input_dir +self.baseName+"MaskBifurcations.png", self.work_dir + 'input_0MaskBifurcations.png')
+            shutil.copy(self.input_dir +self.baseName+"Ref.png", self.work_dir + 'input_Ref.png')
+            shutil.copy(self.input_dir +self.baseName+"RefLiver.png", self.work_dir + 'input_RefLiver.png')
+            shutil.copy(self.input_dir +self.baseName+"RefLiverInput.png", self.work_dir + 'input_RefLiverInput.png')
+            shutil.copy(self.input_dir +self.baseName+"RefInput.png", self.work_dir + 'input_RefInput.png')
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)

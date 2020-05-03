@@ -167,28 +167,30 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
 %else:
     <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/gt.nii'}"> ground truth
  %endif    
-     <span>
+      <span>
+        %if app.cfg['param']['masktypedisplay'] == "livermask" :
+         <img width="${460}px" src="${app.work_url+'/'+'input_RefLiver.png'}" width="400" />
+         %else:
+         <img width="${460}px" src="${app.work_url+'/'+ 'input_Ref.png'}" width="400" />
+         %endif
 
-	</span>
+         
+      </span>
       </a>
       </li>
   <li>
         %if app.cfg['param']['masktypedisplay'] != "livermask" or  app.baseName[2:6] != "irca" :
         <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input image + ground truth
           %elif app.cfg['param']['masktypedisplay'] == "livermask" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input image + ground truth
+        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input masked image + ground truth
           
           %endif
 	  <span>
-            %if app.cfg['param']['masktypedisplay'] == "nomask" :
-                  <img width="${460}px" src="${app.work_url + 'input_0_selection.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "livermask" :
-                  <img width="${460}px" src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "dilatedmask" :
-                  <img width="${460}px"  src="${app.work_url + 'input_0MaskVessel.png'}" width="400" />
-                  %elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
-                  <img width="${460}px"  src="${app.work_url + 'input_0MaskBifurcations.png'}" width="400" />
-                  %endif
+        %if app.cfg['param']['masktypedisplay'] == "livermask" :
+         <img width="${460}px" src="${app.work_url+'/'+'input_RefLiverInput.png'}" width="400" />
+         %else:
+         <img width="${460}px" src="${app.work_url+'/'+ 'input_RefInput.png'}" width="400" />
+         %endif
 	</span>
       </a>
   </li>
