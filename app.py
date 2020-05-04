@@ -308,9 +308,9 @@ class app(base_app):
             command_args += ['--alpha2', str(float(self.cfg['param']['alpha2sato']))] 
         ff = open(self.work_dir+"commands.txt", "w")
         for arg in command_args:
-             self.list_commands += arg
+             self.list_commands += arg + " " 
              ff.write(arg+" ")
-             
+        self.list_commands += "\n"              
         ff.close()
 
 
@@ -420,8 +420,9 @@ class app(base_app):
            command_args += ['-m', maskFileDisplay]
         p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         for arg in command_args:
-            self.list_commands += arg
+            self.list_commands += arg + " " 
             f.write(arg+" ")
+        self.list_commands += "\n"              
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
@@ -444,8 +445,9 @@ class app(base_app):
            command_args += ['-m', maskFileDisplay]
         p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         for arg in command_args:
-            self.list_commands += arg
+            self.list_commands += arg + " " 
             f.write(arg+" ")
+        self.list_commands += "\n"              
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
@@ -456,30 +458,9 @@ class app(base_app):
         self.wait_proc(p, timeout=120)
         fInfo.close()
         f.close()
- 
+
      
 
-        # # # ##  -------
-        # # # ## process 2: Apply Marching Cube
-        # # # ## ---------
-        # f = open(self.work_dir+"outputMarching.txt", "w")
-        # fInfo = open(self.work_dir+"infoMarching.txt", "w")
-        # command_args = ['3dVolMarchingCubes', '-i' , 'res.vol', '-t', str(float(self.cfg['param']['thresholdvisu'])), '-o', 'res.off' ]        
-        # p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        # self.wait_proc(p, timeout=120)
-        # fInfo.close()
-        # f.close()
-        
-        # # # ##  -------
-        # # # ## process 3: convert off to obj
-        # # # ## ---------
-        # f = open(self.work_dir+"outputConvert.txt", "w")
-        # fInfo = open(self.work_dir+"infoConvert.txt", "w")
-        # command_args = ['off2obj', '-i' , 'res.off', '-o', 'res2.obj', '-c', '-n' ]        
-        # p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        # self.wait_proc(p, timeout=120)
-        # fInfo.close()
-        # f.close()
         
         
 
@@ -506,9 +487,9 @@ class app(base_app):
         				  env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=self.timeout)
         # transform convert.sh in it classic prog command (equivalent)
-        # command_to_save = ' '.join(['"' + arg + '"' if ' ' in arg else arg
-        #          for arg in command ])
-        #if comp is not None:
-        #    command_to_save += comp
-        #self.list_commands +=  command_to_save + '\n'
-        #sreturn command_to_save
+        command_to_save = ' '.join(['"' + arg + '"' if ' ' in arg else arg
+                 for arg in command ])
+        if comp is not None:
+            command_to_save += comp
+        self.list_commands +=  command_to_save + '\n'
+        #return command_to_save
