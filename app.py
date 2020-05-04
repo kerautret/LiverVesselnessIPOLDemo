@@ -322,80 +322,7 @@ class app(base_app):
                                        self.cfg['info']['run_time']   
 
         
-        # ##  -------
-        # ## process 2a: Convert nii to vol
-        # ## ---------
-        f = open(self.work_dir+"outputMarching.txt", "w")
-        fInfo= open(self.work_dir+"infoConv1.txt", "w")
-        command_args = ['itk2vol', '-i' , 'res.nii', '-t', 'double','--maskImage', maskFile,\
-                         '--inputMin', '0', '--inputMax','1', '-o', 'res.vol' ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-    
-        # ##  -------
-        # ## process 2b: Convert  vol to obj
-        # ## ---------
-        f = open(self.work_dir+"outputConv2.txt", "w")
-        fInfo= open(self.work_dir+"infoConv2.txt", "w")
-        command_args = ['volBoundary2obj', '-i' , 'res.vol', \
-                         '-m','128', '-o', 'res.obj','--customDiffuse', '20', '20', '200', '200'  ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-
-
-        # ##  -------
-        # ## process 2c: convert liver mask to vol
-        # ## ---------
-        maskVessel = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
-        f = open(self.work_dir+"outputVesselMask.txt", "w")
-        fInfo= open(self.work_dir+"infoVesselMask.txt", "w")
-        command_args = ['itk2vol', '-i' , maskVessel, '-t', 'int',\
-                         '--inputMin', '0', '--inputMax','1', '-o', 'liverMask.vol' ]             
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-        
-        # ##  -------
-        # ## process 2c(2): convert liver mask vol to obj
-        # ## ---------
-        f = open(self.work_dir+"outputVesselMaskObj.txt", "w")
-        fInfo= open(self.work_dir+"infoVesselMaskObj.txt", "w")
-        command_args = ['volBoundary2obj', '-i' , 'liverMask.vol', \
-                         '-m','128', '-o', 'vessel.obj','--customDiffuse', '200', '20', '0', '20'  ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-
-        # ##  -------
-        # ## process 3a: convert vessel mask to vol
-        # ## ---------
-        maskDilate = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
-        f = open(self.work_dir+"outputDilateMask.txt", "w")
-        fInfo= open(self.work_dir+"infoDilateMask.txt", "w")
-        command_args = ['itk2vol', '-i' , maskDilate, '-t', 'int',\
-                         '--inputMin', '0', '--inputMax','1', '-o', 'dilateMask.vol' ]             
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-        
-        # ##  -------
-        # ## process 3b: convert vessel mask vol to obj
-        # ## ---------
-        f = open(self.work_dir+"outputDilateMaskObj.txt", "w")
-        fInfo= open(self.work_dir+"infoDilateMaskObj.txt", "w")
-        command_args = ['volBoundary2obj', '-i' , 'dilateMask.vol', \
-                         '-m','128', '-o', 'dilate.obj','--customDiffuse', '20', '200', '0', '20'  ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
+      
 
 
         maskFileDisplay=""
@@ -409,60 +336,8 @@ class app(base_app):
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
 
       
-        # ## ----------
-        # process 4 For display:
-        # ## ----------
-        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
-        fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
-        command_args = ['itk2vol', '-i' , 'res.nii', \
-                        '-o', 'res.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]
-        if self.cfg['param']['masktypedisplay'] != "nomask" :
-           command_args += ['-m', maskFileDisplay]
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        for arg in command_args:
-            self.list_commands += arg + " " 
-            f.write(arg+" ")
-        self.list_commands += "\n"              
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-        f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
-        fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
-        command_args = ['vol2itk', '-i' , 'res.vol', '-o', 'res.nii' ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
- 
-        # ## ----------
-        # process 4 For display:
-        # ## ----------
-        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
-        fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
-        command_args = ['itk2vol', '-i' , inputFile, \
-                        '-o', 'input.vol','-t', 'double', '--inputMin', '0', '--inputMax',  '1' ]
-        if self.cfg['param']['masktypedisplay'] != "nomask" :
-           command_args += ['-m', maskFileDisplay]
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        for arg in command_args:
-            self.list_commands += arg + " " 
-            f.write(arg+" ")
-        self.list_commands += "\n"              
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-        f = open(self.work_dir+"outputMaskDisplay2.txt", "w")
-        fInfo= open(self.work_dir+"infoMaskDisplay2.txt", "w")
-        command_args = ['vol2itk', '-i' , 'input.vol', '-o', inputFile ]        
-        p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-        self.wait_proc(p, timeout=120)
-        fInfo.close()
-        f.close()
-
      
-
-        
-        
+   
 
 
         
