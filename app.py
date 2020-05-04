@@ -31,7 +31,7 @@ class app(base_app):
     input_ext = '.png'   # input image expected extension (ie file format)
     is_test = False       # switch to False for deployment
     commands = []
-    list_commands = ""
+    list_commands = "#List of command used to generate the results:\n"
     
     def __init__(self):
         """
@@ -271,7 +271,7 @@ class app(base_app):
         self.cfg['info']['run_time'] = time.time()
 
         ##  -------
-        ## process 1: Apply Frangi
+        ## process 1: Apply Methods
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
         inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
@@ -298,7 +298,12 @@ class app(base_app):
         if self.cfg['param']['masktype'] == "bifurcation" :
             maskFile = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
             command_args += [ '--mask', maskFile ]
-        
+
+        if self.cfg['param']['methodname'] == "Antiga" :
+            command_args += ['--alpha', str(float(self.cfg['param']['alpha']))] 
+            command_args += ['--beta', str(float(self.cfg['param']['beta']))]
+            command_args += ['--gamma', str(float(self.cfg['param']['gamma']))]
+            
         if self.cfg['param']['methodname'] == "OOF" :
             command_args += ['--sigma', str(float(self.cfg['param']['sigmaoof']))] 
         if self.cfg['param']['methodname'] == "Jerman" or  self.cfg['param']['methodname'] == "RuiZhang":
@@ -316,14 +321,12 @@ class app(base_app):
         self.list_commands += "\n"              
         ff.close()
 
-
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=300)
         fInfo.close()
         f.close()
         self.cfg['info']['run_time'] = time.time() - \
                                        self.cfg['info']['run_time']   
-
 
         maskFileDisplay=""
         if self.cfg['param']['masktypedisplay'] == "livermask" :
@@ -334,7 +337,31 @@ class app(base_app):
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
         if self.cfg['param']['masktypedisplay'] == "bifurcation" :
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
-           
+
+
+        ##  -------
+        ## process 2: Apply mask to image only if needed.
+        ## ---------
+        if self.cfg['param']['masktypedisplay'] != "nomask" :
+            f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+            fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
+            command_args = ['volMask', '-i' , 'res.nii', '-m', '255', \
+                        '-o', 'res.nii','-t', 'double' ]
+            command_args += ['-a', maskFileDisplay]
+            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            for arg in command_args:
+                if arg[0:53] == "/home/kerautre/ipol/demo/app/LiverVesselnessIPOLDemo/" :
+                    self.list_commands += arg[53:] + " "
+                else :
+                    self.list_commands += arg + " " 
+                f.write(arg+" ")
+            self.wait_proc(p, timeout=120)
+            fInfo.close()
+            f.close()
+ 
+
+
+            
         return
 
 
