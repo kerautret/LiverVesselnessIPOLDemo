@@ -26,9 +26,9 @@ class app(base_app):
     baseName = ""
     input_nb = 1 # number of input images
     input_max_pixels = 4096 * 4096 # max size (in pixels) of an input image
-    input_max_weight = 1 * 4096 * 4096 # max size (in bytes) of an input file
+    input_max_weight = 100 * 4096 * 4096 # max size (in bytes) of an input file
     input_dtype = '3x8i' # input image expected data type
-    input_ext = '.png'   # input image expected extension (ie file format)
+    input_ext = '.nii'   # input image expected extension (ie file format)
     is_test = False       # switch to False for deployment
     commands = []
     list_commands = "#List of command used to generate the results:\n"
@@ -49,7 +49,8 @@ class app(base_app):
         # params() is modified from the template
         app_expose(base_app.params)
         # run() and result() must be defined here
-
+        # input_upload() is modified from the template
+        base_app.input_upload.im_func.exposed = True
 
 
 
@@ -102,6 +103,61 @@ class app(base_app):
         #     shutil.rmtree(self.src_dir)
 
         return
+    @cherrypy.expose
+    def input_upload(self, **kwargs):
+        """
+        upload a new point cloud
+        """
+        self.new_key()
+        self.init_cfg()
+        file_up = kwargs['file_0']
+        filename = self.work_dir + 'input.nii'
+        file_save = file(filename, 'wb')
+
+        if '' == file_up.filename:
+            # missing file
+            raise cherrypy.HTTPError(400, # Bad Request
+                                     "Missing input file")
+
+        if file_up.filename[-3:] != 'nii':
+            # not the right format
+            raise cherrypy.HTTPError(400, # Bad Request
+                                     "Input file should be in .nii\
+                                     (and have .nii extension)"+file_up.filename[-3:])
+        size = 0
+        while True:
+            #larger data size
+            data = file_up.file.read(128)
+            if not data:
+                break
+            size += len(data)
+            if size > self.input_max_weight:
+                # file too heavy
+                raise cherrypy.HTTPError(400, # Bad Request
+                                         "File too large")
+            file_save.write(data)
+        file_save.close()
+
+        #creating the file content
+        fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
+        commandDisplay = ['volMip', '-i' , filename, '-o', 'input_0.pgm', '-a'] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
+
+        fInfo= open(self.work_dir+"infoConvert.txt", "w")        
+        commandDisplay = ['/usr/bin/convert','input_0.pgm', 'input_0.png'] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
+        
+        
+        msg = ""
+        self.log("input uploaded")
+        self.cfg['meta']['original'] = True
+        self.cfg.save()
+        return self.params(msg=msg, key=self.key)
+
 
 
 
