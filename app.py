@@ -311,16 +311,7 @@ class app(base_app):
         if self.cfg['param']['methodname'] == "Sato":
             command_args += ['--alpha1', str(float(self.cfg['param']['alpha1sato']))] 
             command_args += ['--alpha2', str(float(self.cfg['param']['alpha2sato']))] 
-        ff = open(self.work_dir+"commands.txt", "w")
-        for arg in command_args:
-             if arg[0:53] == "/home/kerautre/ipol/demo/app/LiverVesselnessIPOLDemo/" :
-                 self.list_commands += arg[53:] + " "
-             else :
-                 self.list_commands += arg + " " 
-             ff.write(arg+" ")
-        self.list_commands += "\n"              
-        ff.close()
-
+      
         p = self.run_proc(command_args, stdout=f, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=300)
         fInfo.close()
@@ -343,22 +334,25 @@ class app(base_app):
         ## process 2: Apply mask to image only if needed.
         ## ---------
         if self.cfg['param']['masktypedisplay'] != "nomask" :
-            f = open(self.work_dir+"outputMaskDisplay.txt", "w")
             fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
-            command_args = ['volMask', '-i' , 'res.nii', '-m', '255', \
+            command_args2 = ['volMask', '-i' , 'res.nii', '-m', '255', \
                         '-o', 'res.nii','-t', 'double' ]
-            command_args += ['-a', maskFileDisplay]
-            p = self.run_proc(command_args, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
-            for arg in command_args:
-                if arg[0:53] == "/home/kerautre/ipol/demo/app/LiverVesselnessIPOLDemo/" :
-                    self.list_commands += arg[53:] + " "
-                else :
-                    self.list_commands += arg + " " 
-                f.write(arg+" ")
+            command_args2 += ['-a', maskFileDisplay]
+            p = self.run_proc(command_args2, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
             self.wait_proc(p, timeout=120)
             fInfo.close()
-            f.close()
- 
+            command_args += ['\n']
+            command_args += command_args2
+        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+        for arg in command_args:
+               if arg[0:53] == "/home/kerautre/ipol/demo/app/LiverVesselnessIPOLDemo/" :
+                   self.list_commands += arg[53:] + " "
+               elif arg == '\n':
+                   self.list_commands += arg                
+               else :
+                   self.list_commands += arg + " " 
+               f.write(arg+" ")
+        f.close()
 
 
             
