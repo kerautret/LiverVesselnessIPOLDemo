@@ -301,14 +301,23 @@ class app(base_app):
         # archive
         if self.cfg['meta']['original']:
              ar = self.make_archive()
-             ar.add_file("input_0.png", "original.png", info="uploaded")
-             ar.add_file("result.png", "result.png", info="result")
-             ar.add_file("output.txt", info="output.txt")
-             ar.add_file("commands.txt", info="commands.txt")
-        #     ar.add_file(typeprimitive+"_out_input_0.png", info="output")
-        #     ar.add_info({"type primitive": typeprimitive})
-        #     ar.add_info({"use black background": b})
+             ar.add_file("input_0.png", "original.png", info="source (displayed in MIP)")
+             ar.add_file("result.png", "result.png", info="result (displayed in MIP)")
+             ar.add_file("output.txt", info="Algorithm output")
+             ar.add_file("commands.txt", info="commands")
+             ar.add_info({"Method used": self.cfg['param']['methodname']})
+             ar.add_info({"time":         self.cfg['info']['run_time']})
+             
+             if self.cfg['param']['methodname'] != "RORPO_multiscale_usage" :
+                 ar.add_info({"sigmaMin": self.cfg['param']['sigmamin']})
+                 ar.add_info({"sigmaMax": self.cfg['param']['sigmamax']})
+                 ar.add_info({"Nb steps": self.cfg['param']['steps']})                 
+             else :
+                 ar.add_info({"Nb scales": self.cfg['param']['nbscalerorpo']})
+                 ar.add_info({"Dilatation Size": self.cfg['param']['dilatationrorpo']})
+                 ar.add_info({"Factor": self.cfg['param']['factorrorpo']})
 
+    
              ar.save()
 
         return self.tmpl_out("run.html")
