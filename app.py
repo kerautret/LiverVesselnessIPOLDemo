@@ -140,7 +140,7 @@ class app(base_app):
 
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
-        commandDisplay = ['volMip', '-i' , filename, '-o', 'input_0.pgm', '-a'] 
+        commandDisplay = ['volMip', '-i' , filename, '-o','input_0.pgm', '-a', '1.0'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
@@ -298,17 +298,18 @@ class app(base_app):
 
         http.redir_303(self.base_url + 'result?key=%s' % self.key)
 
-        # # archive
-        # if self.cfg['meta']['original']:
-        #     ar = self.make_archive()
-        #     ar.add_file("input_0.png", "original.png", info="uploaded")
-        #     ar.add_file("output.txt", info="output.txt")
-        #     ar.add_file("commands.txt", info="commands.txt")
+        # archive
+        if self.cfg['meta']['original']:
+             ar = self.make_archive()
+             ar.add_file("input_0.png", "original.png", info="uploaded")
+             ar.add_file("result.png", "result.png", info="result")
+             ar.add_file("output.txt", info="output.txt")
+             ar.add_file("commands.txt", info="commands.txt")
         #     ar.add_file(typeprimitive+"_out_input_0.png", info="output")
         #     ar.add_info({"type primitive": typeprimitive})
         #     ar.add_info({"use black background": b})
 
-        #     ar.save()
+             ar.save()
 
         return self.tmpl_out("run.html")
 
@@ -402,7 +403,7 @@ class app(base_app):
             fInfo.close()
             command_args += ['\n']
             command_args += command_args2
-        f = open(self.work_dir+"outputMaskDisplay.txt", "w")
+        f = open(self.work_dir+"commands.txt", "w")
         for arg in command_args:
                if arg[0:53] == "/home/kerautre/ipol/demo/app/LiverVesselnessIPOLDemo/" :
                    self.list_commands += arg[53:] + " "
@@ -413,6 +414,19 @@ class app(base_app):
                f.write(arg+" ")
         f.close()
 
+        #creating the file content
+        fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
+        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.pgm', '-a','1.0', '-t', 'double', \
+                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0' ] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
+
+        fInfo= open(self.work_dir+"infoConvert.txt", "w")        
+        commandDisplay = ['/usr/bin/convert','res.pgm', 'result.png'] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
 
             
         return
