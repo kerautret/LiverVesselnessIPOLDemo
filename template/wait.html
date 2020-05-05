@@ -4,7 +4,9 @@
 
 <h2>Input Image</h2>
 
-%if app.cfg['param']['masktypedisplay'] == "nomask" :
+%if  app.cfg['meta']['original']:
+<img src="${app.work_url + 'input_0.png'}" width="400" />
+%elif app.cfg['param']['masktypedisplay'] == "nomask" :
 <img src="${app.work_url + 'input_0_selection.png'}" width="400" />
 %elif app.cfg['param']['masktypedisplay'] == "livermask" :
 <img src="${app.work_url + 'input_0MaskLiver.png'}" width="400" />

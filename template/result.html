@@ -17,11 +17,11 @@
 </p>
 <p>
   The result was obtained by the following scale parameters (displayed on  <i><font color="blue">
-%if app.cfg['param']['masktypedisplay'] == "dilatedmask" :
+%if app.cfg['param']['masktypedisplay'] == "dilatedmask" and  not app.cfg['meta']['original']:
  dilated vessel mask</font></i>).
-%elif app.cfg['param']['masktypedisplay'] == "livermask" :
+%elif app.cfg['param']['masktypedisplay'] == "livermask" and  not app.cfg['meta']['original'] :
  liver mask </font></i>).
-%elif app.cfg['param']['masktypedisplay'] == "bifurcation" :
+%elif app.cfg['param']['masktypedisplay'] == "bifurcation" and  not app.cfg['meta']['original'] :
  vessel bifurcation mask</font></i>).
 %else:
 no mask</font></i>).
@@ -97,8 +97,13 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
        class="itk-vtk-viewer"
          data-viewport="650x400"
         data-background-color="ffffFF"
-       data-url="${app.work_url + 'res.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}"      
-      />
+       %if  not app.cfg['meta']['original']:
+         data-url="${app.work_url + 'res.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}"      
+         %else:
+         data-url="${app.work_url + 'res.nii'}"      
+       %endif
+
+         />
   <script type="text/javascript" src="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/itkVtkViewerCDN.js"></script>
    </div>
 </div>
@@ -110,7 +115,7 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
   
 <p>The source images are illustrated on following menu (just click on the menu link on the left to load 3D viewer) : </p>
 
-
+%if   not app.cfg['meta']['original'] :
 <div id="image3d" class="gallery" style="height:${560}px">
     <ul class="index">
       %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
@@ -198,7 +203,7 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
 </ul>
 </div>    
 
-
+%endif
 
 <h2>
   <a class="toggle" href="#commands" onclick="toggle('commands');">

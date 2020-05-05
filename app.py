@@ -325,12 +325,15 @@ class app(base_app):
         """
         #radius = self.cfg['param']['radius']
         self.cfg['info']['run_time'] = time.time()
-
+        
         ##  -------
         ## process 1: Apply Methods
         ## ---------
         f = open(self.work_dir+"output.txt", "w")
-        inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
+        if  self.cfg['meta']['original'] :
+            inputFile = self.work_dir+"input.nii"
+        else :
+            inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
         f.write("test write output..."+ inputFile)
         fInfo = open(self.work_dir+"info.txt", "w")
         command_args = [self.cfg['param']['methodname'], '--input' , inputFile, '--output', 'res.nii']
@@ -345,13 +348,13 @@ class app(base_app):
                              '--factor', str(float(self.cfg['param']['factorrorpo']))]
         ## Add specific options if a mask is selected:
         maskFile = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
-        if self.cfg['param']['masktype'] == "livermask" :
+        if self.cfg['param']['masktype'] == "livermask" and not self.cfg['meta']['original'] :
             maskFile = self.input_dir+"Data/"+self.baseName+"/"+"liverMaskIso.nii"
             command_args += [ '--mask', maskFile ]
-        if self.cfg['param']['masktype'] == "dilatedmask" :
+        if self.cfg['param']['masktype'] == "dilatedmask" and not self.cfg['meta']['original'] :
             maskFile = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
             command_args += [ '--mask', maskFile ]
-        if self.cfg['param']['masktype'] == "bifurcation" :
+        if self.cfg['param']['masktype'] == "bifurcation" and   not self.cfg['meta']['original'] :
             maskFile = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
             command_args += [ '--mask', maskFile ]
 
@@ -389,7 +392,7 @@ class app(base_app):
         ##  -------
         ## process 2: Apply mask to image only if needed.
         ## ---------
-        if self.cfg['param']['masktypedisplay'] != "nomask" :
+        if self.cfg['param']['masktypedisplay'] != "nomask" and not self.cfg['meta']['original']:
             fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
             command_args2 = ['volMask', '-i' , 'res.nii', '-m', '255', \
                         '-o', 'res.nii','-t', 'double' ]
