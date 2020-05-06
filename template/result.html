@@ -82,7 +82,7 @@ no mask</font></i>).
   </div>
 </form>
 
-
+<hr>
 <h2>Result</h2>
 In addition to the 3D visualisation, you can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">.off</a> format.  You can also check the input: <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}"> here</a>
 
@@ -199,23 +199,59 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
 	</span>
       </a>
   </li>
+      <li><a href="${app.work_url+'/'+'inputMip.png'}"> Input MIP
+      <span>        
+         <img width="${460}px" src="${app.work_url+'/'+'inputMip.png'}" width="400" />
+      </span></a>
+      </li>
+      <li><a href="${app.work_url+'/'+'result.png'}"> Result MIP
+      <span>        
+         <img width="${460}px" src="${app.work_url+'/'+'result.png'}" width="400" />
+      </span></a>
+      </li>
+      <li><a href="${app.work_url+'/'+'resultMasked.png'}"> Result Masked MIP
+      <span>        
+         <img width="${460}px" src="${app.work_url+'/'+'resultMasked.png'}" width="400" />
+      </span></a>
+      </li>
    
 </ul>
 </div>    
+%else:
 
+<div id="image3d" class="gallery" style="height:${560}px">
+    <ul class="index">
+      <li><a href="${app.work_url+'/'+'inputMip.png'}"> Input MIP
+      <span>        
+         <img width="${460}px" src="${app.work_url+'/'+'inputMip.png'}" width="400" />
+      </span></a>
+      </li>
+      <li><a href="${app.work_url+'/'+'result.png'}"> Result MIP
+      <span>        
+         <img width="${460}px" src="${app.work_url+'/'+'result.png'}" width="400" />
+      </span></a>
+      </li>
+
+    </ul>
+</div>
 %endif
+
+
+<hr>
 
 <h2>
   <a class="toggle" href="#commands" onclick="toggle('commands');">
     Additional Info
   </a>
 </h2>
+
 <div id="commands" style="display:none">
 <p>
 The algorithm ran with the following commands:
 <pre class="stdio">${app.list_commands}</pre>
 </p>
 </div>
+<hr>
 
 <%include file="footer.html" />
 <%include file="archive_info.html" />

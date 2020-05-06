@@ -150,7 +150,7 @@ class app(base_app):
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
-        
+        shutil.copy(self.work_dir+"input_0.png", self.work_dir + 'inputMip.png')
         
         msg = ""
         self.log("input uploaded")
@@ -176,6 +176,21 @@ class app(base_app):
             shutil.copy(self.input_dir +self.baseName+"RefLiver.png", self.work_dir + 'input_RefLiver.png')
             shutil.copy(self.input_dir +self.baseName+"RefLiverInput.png", self.work_dir + 'input_RefLiverInput.png')
             shutil.copy(self.input_dir +self.baseName+"RefInput.png", self.work_dir + 'input_RefInput.png')
+            #creating the file content
+            fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
+            inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
+
+            commandDisplay = ['volMip', '-i' , inputFile, '-o','inputMip.pgm', '-a', '1.0'] 
+            p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            self.wait_proc(p, timeout=240)
+            fInfo.close()
+            
+            fInfo= open(self.work_dir+"infoConvert.txt", "w")        
+            commandDisplay = ['/usr/bin/convert','inputMip.pgm', 'inputMip.png'] 
+            p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            self.wait_proc(p, timeout=240)
+            fInfo.close()
+    
             #radius = (fnames[0])[-7:-4]
             radius = 50
             #self.cfg['meta']['rad'] = float(radius)
@@ -397,6 +412,18 @@ class app(base_app):
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"dilatedVesselsMaskIso.nii"
         if self.cfg['param']['masktypedisplay'] == "bifurcation" :
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
+        #creating the file content
+        fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
+        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.pgm', '-a','1.0', '-t', 'double', \
+                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0' ] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
+        fInfo= open(self.work_dir+"infoConvert.txt", "w")        
+        commandDisplay = ['/usr/bin/convert','res.pgm', 'result.png'] 
+        p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
+        self.wait_proc(p, timeout=240)
+        fInfo.close()
 
 
         ##  -------
@@ -425,14 +452,15 @@ class app(base_app):
 
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
-        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.pgm', '-a','1.0', '-t', 'double', \
+        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'resMasked.pgm', '-a','1.0', '-t', 'double', \
                           '--rescaleInputMin', '0', '--rescaleInputMax', '1.0' ] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
 
+     
         fInfo= open(self.work_dir+"infoConvert.txt", "w")        
-        commandDisplay = ['/usr/bin/convert','res.pgm', 'result.png'] 
+        commandDisplay = ['/usr/bin/convert','resMasked.pgm', 'resultMasked.png'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
