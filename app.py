@@ -140,13 +140,14 @@ class app(base_app):
 
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
-        commandDisplay = ['volMip', '-i' , filename, '-o','input_0.pgm', '-a', '1.0'] 
+        commandDisplay = ['volMip', '-i' , filename, '-o','input_0.ppm', '-a', '1.0',\
+                          '--colorMapRendering', 'viridis'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
 
         fInfo= open(self.work_dir+"infoConvert.txt", "w")        
-        commandDisplay = ['/usr/bin/convert','input_0.pgm', 'input_0.png'] 
+        commandDisplay = ['/usr/bin/convert','input_0.ppm', 'input_0.png'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
@@ -180,13 +181,14 @@ class app(base_app):
             fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
             inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
 
-            commandDisplay = ['volMip', '-i' , inputFile, '-o','inputMip.pgm', '-a', '1.0'] 
+            commandDisplay = ['volMip', '-i' , inputFile, '-o','inputMip.ppm', '-a', '1.0', \
+                              '--colorMapRendering', 'viridis' ] 
             p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
             self.wait_proc(p, timeout=240)
             fInfo.close()
             
             fInfo= open(self.work_dir+"infoConvert.txt", "w")        
-            commandDisplay = ['/usr/bin/convert','inputMip.pgm', 'inputMip.png'] 
+            commandDisplay = ['/usr/bin/convert','inputMip.ppm', 'inputMip.png'] 
             p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
             self.wait_proc(p, timeout=240)
             fInfo.close()
@@ -215,7 +217,7 @@ class app(base_app):
         # save the input image as 'input_0_selection.png', the one to be used
         img = image(self.work_dir + 'input_0.png')
         img.save(self.work_dir + 'input_0_selection.png')
-        img.save(self.work_dir + 'input_0_selection.pgm')
+
 
 
         # initialize subimage parameters
@@ -414,13 +416,13 @@ class app(base_app):
             maskFileDisplay = self.input_dir+"Data/"+self.baseName+"/"+"bifurcationsMaskIso.nii"
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
-        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.pgm', '-a','1.0', '-t', 'double', \
-                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0' ] 
+        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.ppm', '-a','1.0', '-t', 'double', \
+                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0', '--colorMapRendering', 'viridis' ] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
         fInfo= open(self.work_dir+"infoConvert.txt", "w")        
-        commandDisplay = ['/usr/bin/convert','res.pgm', 'result.png'] 
+        commandDisplay = ['/usr/bin/convert','res.ppm', 'result.png'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
@@ -452,15 +454,15 @@ class app(base_app):
 
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
-        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'resMasked.pgm', '-a','1.0', '-t', 'double', \
-                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0' ] 
+        commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'resMasked.ppm', '-a','1.0', '-t', 'double', \
+                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0', '--colorMapRendering', 'viridis' ] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
 
      
         fInfo= open(self.work_dir+"infoConvert.txt", "w")        
-        commandDisplay = ['/usr/bin/convert','resMasked.pgm', 'resultMasked.png'] 
+        commandDisplay = ['/usr/bin/convert','resMasked.ppm', 'resultMasked.png'] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
