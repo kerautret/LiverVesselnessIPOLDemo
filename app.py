@@ -111,7 +111,7 @@ class app(base_app):
         self.new_key()
         self.init_cfg()
         file_up = kwargs['file_0']
-        filename = self.work_dir + 'input.nii'
+        filename = self.work_dir + 'input.' + file_up.filename[-3:]
         file_save = file(filename, 'wb')
 
         if '' == file_up.filename:
@@ -119,7 +119,8 @@ class app(base_app):
             raise cherrypy.HTTPError(400, # Bad Request
                                      "Missing input file")
 
-        if file_up.filename[-3:] != 'nii':
+        if file_up.filename[-3:] != 'nii' and file_up.filename[-3:] != 'vol' and \
+           file_up.filename[-3:] != 'mha' and file_up.filename[-3:] != 'mhd' :
             # not the right format
             raise cherrypy.HTTPError(400, # Bad Request
                                      "Input file should be in .nii\
@@ -137,6 +138,11 @@ class app(base_app):
                                          "File too large")
             file_save.write(data)
         file_save.close()
+        if file_up.filename[-3:] == 'mha' or file_up.filename[-3:] == 'mhd' or file_up.filename[-3:] == 'vol'  :
+            commandConvert = ['convertVol', '-i' , filename, '-o', self.work_dir + 'input.nii'] 
+            p = self.run_proc(commandConvert, env={'LD_LIBRARY_PATH' : self.bin_dir})
+            self.wait_proc(p, timeout=240)
+
 
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
