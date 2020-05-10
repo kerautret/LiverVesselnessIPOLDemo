@@ -206,12 +206,13 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
          <img width="${460}px" src="${app.work_url+'/'+'result.png'}" width="400" />
       </span></a>
       </li>
+      %if app.cfg['param']['masktypedisplay'] != "nomask" :
       <li><a href="${app.work_url+'/'+'resultMasked.png'}"> Result Masked MIP
       <span>        
          <img width="${460}px" src="${app.work_url+'/'+'resultMasked.png'}" width="400" />
       </span></a>
       </li>
-   
+   %endif
 </ul>
 </div>    
 %else:
