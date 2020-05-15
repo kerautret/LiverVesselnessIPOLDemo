@@ -423,7 +423,8 @@ class app(base_app):
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
         commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'res.ppm', '-a','1.0', '-t', 'double', \
-                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0', '--colorMapRendering', 'viridis' ] 
+                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0','--inputAutoRescale',
+                          '--colorMapRendering', 'viridis' ] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()
@@ -435,8 +436,7 @@ class app(base_app):
 
 
         ##  -------
-        ## process 2: Apply mask to image only if needed.
-        ## ---------
+        ## process 2: Apply mask to image only if needed.        ## ---------
         if self.cfg['param']['masktypedisplay'] != "nomask" and not self.cfg['meta']['original']:
             fInfo= open(self.work_dir+"infoMaskDisplay.txt", "w")        
             command_args2 = ['volMask', '-i' , 'res.nii', '-m', '255', \
@@ -461,7 +461,7 @@ class app(base_app):
         #creating the file content
         fInfo= open(self.work_dir+"infoGenDisplayRes.txt", "w")        
         commandDisplay = ['volMip', '-i' , 'res.nii', '-o', 'resMasked.ppm', '-a','1.0', '-t', 'double', \
-                          '--rescaleInputMin', '0', '--rescaleInputMax', '1.0', '--colorMapRendering', 'viridis' ] 
+                          '--rescaleInputMin', '0', '--inputAutoRescale', '--rescaleInputMax', '1.0', '--colorMapRendering', 'viridis' ] 
         p = self.run_proc(commandDisplay, stderr=fInfo, env={'LD_LIBRARY_PATH' : self.bin_dir})
         self.wait_proc(p, timeout=240)
         fInfo.close()

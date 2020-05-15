@@ -81,7 +81,7 @@ no mask</font></i>).
 
 <hr>
 <h2>Result</h2>
-In addition to the 3D visualisation, you can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">.off</a> format.  You can also check the input: <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}"> here</a>
+In addition to the 3D visualisation, you can download the result in <a href="${app.work_url + 'res.nii'}">.nii</a> format or download the reference mesh  <a href="${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/ref.obj'}"> .obj</a> of <a href="${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">.off</a> format.  You can also check the input: <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}"> here</a>
 
 
 
@@ -95,13 +95,13 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
          data-viewport="650x400"
         data-background-color="ffffFF"
        %if  not app.cfg['meta']['original']:
-         data-url="${app.work_url + 'res.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}"      
+         data-url="${app.work_url + 'res.nii'},${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}"      
          %else:
          data-url="${app.work_url + 'res.nii'}"      
        %endif
 
          />
-  <script type="text/javascript" src="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/itkVtkViewerCDN.js"></script>
+  <script type="text/javascript" src="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/itkVtkViewerCDN.js"></script>
    </div>
 </div>
 
@@ -117,7 +117,7 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
     <ul class="index">
       %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
       <li>
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'}">Input masked image          
+        <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'}">Input masked image          
 	  <span>
               %if app.cfg['param']['masktypedisplay'] == "nomask" :
                  <img width="${460}px" src="${app.work_url + 'input_0_selection.png'}" width="400" />
@@ -135,7 +135,7 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
 
       %if app.cfg['param']['masktypedisplay'] == "dilatedmask"  :
       <li>
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIsoMaskedVessel.nii'}">Input masked image          
+        <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIsoMaskedVessel.nii'}">Input masked image          
 	  <span>
               %if app.cfg['param']['masktypedisplay'] == "nomask" :
                  <img width="${460}px" src="${app.work_url + 'input_0_selection.png'}" width="400" />
@@ -153,9 +153,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
       
       <li>
         %if app.cfg['param']['masktypedisplay'] == "livermask" and  app.baseName[2:6] == "irca" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Non masked source	  
+        <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Non masked source	  
        %else:
-          <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image 
+          <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'}">Input image 
        %endif
 	    <span>
                   <img width="${460}px" src="${app.work_url + 'input_0_selection.png'}" width="400" />
@@ -165,9 +165,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
       
  <li>
 %if app.baseName[2:6] == "irca":
-<a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/vesselsIso.nii'}"> ground truth
+<a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/vesselsIso.nii'}"> ground truth
 %else:
-    <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/gt.nii'}"> ground truth
+    <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/gt.nii'}"> ground truth
  %endif    
       <span>
         %if app.cfg['param']['masktypedisplay'] == "livermask" :
@@ -182,9 +182,9 @@ In addition to the 3D visualisation, you can download the result in <a href="${a
       </li>
   <li>
         %if app.cfg['param']['masktypedisplay'] != "livermask" or  app.baseName[2:6] != "irca" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input image + ground truth
+        <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/patientIso.nii'},${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input image + ground truth
           %elif app.cfg['param']['masktypedisplay'] == "livermask" :
-        <a href="http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'},${'http://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input masked image + ground truth
+        <a href="https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/itk-vtk-viewer/dist/index.html?fileToLoad=${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/maskedLiverIso.nii'},${'https://ipol-geometry.loria.fr/SourceCodeDemosWorkshop/InputLiverDemo/Data/'+app.baseName +'/'+app.refName+'.off'}">Input masked image + ground truth
           
           %endif
 	  <span>
