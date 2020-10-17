@@ -17,8 +17,8 @@ class app(base_app):
     """ template demo app """
 
     title = "Online Demonstration of  Liver Vesselness Filters  "
-    xlink_article = 'http://www.ipol.im/'
-    xlink_src = 'http://www.ipol.im/pub/pre/67/gjknd_1.1.tgz'
+    xlink_article = 'https://www.ipol.im/'
+    xlink_src = 'https://www.ipol.im/pub/pre/67/gjknd_1.1.tgz'
     dgtal_src = 'https://github.com/kerautret/DGtal.git'
     demo_src_filename  = 'gjknd_1.1.tgz'
     demo_src_dir = 'LiverVesselness'
@@ -183,6 +183,10 @@ class app(base_app):
             shutil.copy(self.input_dir +self.baseName+"RefLiver.png", self.work_dir + 'input_RefLiver.png')
             shutil.copy(self.input_dir +self.baseName+"RefLiverInput.png", self.work_dir + 'input_RefLiverInput.png')
             shutil.copy(self.input_dir +self.baseName+"RefInput.png", self.work_dir + 'input_RefInput.png')
+            if not self.cfg['meta']['original'] :
+                shutil.copy(self.input_dir +"/Data/"+self.baseName+"/"+self.refName+".off", self.work_dir + 'ref.off')
+                shutil.copy(self.input_dir +"/Data/"+self.baseName+"/"+self.refName+".obj", self.work_dir + 'ref.obj')
+
             #creating the file content
             fInfo= open(self.work_dir+"infoGenDisplayInput.txt", "w")        
             inputFile = self.input_dir+"Data/"+self.baseName+"/"+"patientIso.nii"
